@@ -12,7 +12,7 @@ const IncidentReport: React.FC = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [isChatEnded, setIsChatEnded] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [tempSentMessage, setTempSentMessage] = useState<string | null>(null);
+  const [, setTempSentMessage] = useState<string | null>(null);
   const chatSessionRef = useRef<any>(null);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const IncidentReport: React.FC = () => {
     const doc = new jsPDF();
     let y = 10;
     messages.forEach((msg) => {
-      doc.text(10, y, `${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`);
+      doc.text(`${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`, 10, y);
       y += 10;
     });
     doc.save('incident_report.pdf');
