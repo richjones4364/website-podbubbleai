@@ -1,7 +1,8 @@
-import React from 'react';
+
 import { Bot, ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import IncidentReport from '../components/IncidentReport';
 
 const DemoPage = () => {
   return (
@@ -42,15 +43,12 @@ const DemoPage = () => {
                 This demo shows how an AI agent can support your pastoral team in triaging student self-referrals.
               </p>
             </div>
-            
-            {/* This is the empty container where you can place your React component */}
             <div id="chat-demo-container" className="p-6 h-[500px] bg-gray-50">
-              {/* Your chat agent React component will be placed here */}
+              
               <div className="flex items-center justify-center h-full border-2 border-dashed border-gray-300 rounded-lg">
                 <div className="text-center">
                   <Bot className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">Chat Agent Demo</h3>
-                  <p className="mt-1 text-sm text-gray-500">Your React component will be placed here.</p>
+                  <IncidentReport />
                 </div>
               </div>
             </div>
