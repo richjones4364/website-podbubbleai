@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-orange-500 font-bold text-2xl">PodBubble</span>
+              <span className="text-orange-500 font-bold text-2xl">PodBubble</span><span className="text-blue-500 font-bold text-2xl">AI</span>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <a href="#features" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
