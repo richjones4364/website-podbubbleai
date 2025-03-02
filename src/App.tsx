@@ -17,7 +17,7 @@ function HomePage() {
       <HeroSection />
       <FeatureSection />
       <LeadCaptureSection />
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
       <CTASection />
       <Footer />
     </div>
