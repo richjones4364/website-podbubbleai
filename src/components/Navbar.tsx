@@ -16,9 +16,9 @@ const Navbar = () => {
               <a href="#features" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Features
               </a>
-              <a href="#testimonials" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+              {/* <a href="#testimonials" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Testimonials
-              </a>
+              </a> */}
               <a href="/demo" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Demo
               </a>
@@ -28,9 +28,9 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+            {/* <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium">
               Book a Demo
-            </button>
+            </button> */}
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
             <button
