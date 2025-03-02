@@ -48,7 +48,7 @@ const LeadCaptureSection = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Free Guide: AI Tools for Teachers
+              Free 'AI Tools for Teachers'
             </h2>
             {/* ... rest of the text content ... */}
           </div>
