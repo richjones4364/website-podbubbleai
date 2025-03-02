@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Clock, MessageSquare, Users, Sparkles } from 'lucide-react';
 
 const features = [
