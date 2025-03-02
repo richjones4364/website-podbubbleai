@@ -17,7 +17,7 @@ const DemoPage = () => {
                 Experience PodBubble in Action
               </h1>
               <p className="mt-4 text-xl">
-                Try our AI assistant and see how it can reduce administrative workload in your school.
+                Try our Student Incident Report Agent and see how it can support your pastoral team.
               </p>
               <a 
                 href="/" 
@@ -39,7 +39,7 @@ const DemoPage = () => {
                 <h2 className="ml-3 text-2xl font-bold text-gray-900">PodBubble AI Assistant</h2>
               </div>
               <p className="mt-2 text-gray-600">
-                This demo shows how our AI assistant can help with common administrative tasks in schools.
+                This demo shows how an AI agent can support your pastoral team in triaging student self-referrals.
               </p>
             </div>
             
