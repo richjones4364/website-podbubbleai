@@ -48,7 +48,7 @@ const LeadCaptureSection = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Free 'AI Tools for Teachers'
+              'Work Smarter, Not Harder'
             </h2>
             {/* ... rest of the text content ... */}
           </div>
@@ -64,14 +64,14 @@ const LeadCaptureSection = () => {
                   <CheckCircle className="h-12 w-12 text-green-500 mx-auto" />
                   <h3 className="mt-2 text-xl font-medium text-gray-900">Thank you!</h3>
                   <p className="mt-2 text-base text-gray-600">
-                    Your guide is on its way to your inbox. Please check your email.
+                    Your report is on its way to your inbox. Please check your email.
                   </p>
                 </div>
               ) : (
                 <>
                   <h3 className="text-xl font-medium text-center text-gray-900">Get your free guide</h3>
                   <p className="mt-2 text-center text-gray-600">
-                    Enter your email below to receive our step-by-step guide.
+                    Enter your email below to receive 'Work Smarter, Not Harder'.
                   </p>
                   <form className="mt-6" onSubmit={handleSubmit}>
                     <div>
@@ -101,7 +101,7 @@ const LeadCaptureSection = () => {
                       </button>
                     </div>
                     <p className="mt-3 text-xs text-gray-500 text-center">
-                      We respect your privacy. Unsubscribe at any time.
+                      We respect your privacy. We use your email to send you occasional updates on our progress. Unsubscribe at any time.
                     </p>
                   </form>
                 </>

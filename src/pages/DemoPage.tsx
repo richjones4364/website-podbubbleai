@@ -1,7 +1,8 @@
-import React from 'react';
+
 import { Bot, ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import IncidentReport from '../components/IncidentReport';
 
 const DemoPage = () => {
   return (
@@ -17,7 +18,7 @@ const DemoPage = () => {
                 Experience PodBubble in Action
               </h1>
               <p className="mt-4 text-xl">
-                Try our AI assistant and see how it can reduce administrative workload in your school.
+                Try our Student Incident Report Agent and see how it can support your pastoral team.
               </p>
               <a 
                 href="/" 
@@ -39,18 +40,15 @@ const DemoPage = () => {
                 <h2 className="ml-3 text-2xl font-bold text-gray-900">PodBubble AI Assistant</h2>
               </div>
               <p className="mt-2 text-gray-600">
-                This demo shows how our AI assistant can help with common administrative tasks in schools.
+                This demo shows how an AI agent can support your pastoral team in triaging student self-referrals.
               </p>
             </div>
-            
-            {/* This is the empty container where you can place your React component */}
             <div id="chat-demo-container" className="p-6 h-[500px] bg-gray-50">
-              {/* Your chat agent React component will be placed here */}
+              
               <div className="flex items-center justify-center h-full border-2 border-dashed border-gray-300 rounded-lg">
                 <div className="text-center">
                   <Bot className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">Chat Agent Demo</h3>
-                  <p className="mt-1 text-sm text-gray-500">Your React component will be placed here.</p>
+                  <IncidentReport />
                 </div>
               </div>
             </div>
@@ -59,10 +57,10 @@ const DemoPage = () => {
               <div className="text-sm">
                 <p className="font-medium text-gray-900">How to use this demo:</p>
                 <ul className="mt-2 list-disc pl-5 text-gray-600">
-                  <li>Ask about school administrative tasks</li>
-                  <li>Try scheduling a meeting or organizing an event</li>
-                  <li>Request information about student records or attendance</li>
-                  <li>Ask for help with parent communication</li>
+                  <li>Play the role of a student reporting an incident.</li>
+                  <li>You will be guided to explain what has happened to you and who was involved.</li>
+                  <li>You will be encouraged to share your feelings regarding the incident.</li>
+                  <li>At the end of the chat, your report will be shared with the pastoral team.</li>
                 </ul>
               </div>
             </div>

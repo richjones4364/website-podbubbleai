@@ -1,12 +1,12 @@
-import React from 'react';
+// import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { School, BookOpen, Clock, Award, ChevronRight, MessageSquare, Users, Sparkles } from 'lucide-react';
+// import { School, BookOpen, Clock, Award, ChevronRight, MessageSquare, Users, Sparkles } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HeroSection from './components/HeroSection';
 import FeatureSection from './components/FeatureSection';
 import LeadCaptureSection from './components/LeadCaptureSection';
-import TestimonialSection from './components/TestimonialSection';
+// import TestimonialSection from './components/TestimonialSection';
 import CTASection from './components/CTASection';
 import DemoPage from './pages/DemoPage';
 
@@ -17,7 +17,7 @@ function HomePage() {
       <HeroSection />
       <FeatureSection />
       <LeadCaptureSection />
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
       <CTASection />
       <Footer />
     </div>
