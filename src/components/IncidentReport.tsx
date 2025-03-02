@@ -11,7 +11,7 @@ const IncidentReport: React.FC = () => {
   const [message, setMessage] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const [isChatEnded, setIsChatEnded] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const [tempSentMessage, setTempSentMessage] = useState<string | null>(null);
   const chatSessionRef = useRef<any>(null);
 
@@ -101,13 +101,19 @@ const IncidentReport: React.FC = () => {
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll the chat container to the bottom when messages change
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages]);
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-lg font-bold text-center mb-4">Incident Report Chat</h2>
-      <div className="h-64 overflow-y-auto border p-2 rounded">
+      <div 
+        ref={chatContainerRef}
+        className="h-64 overflow-y-auto border p-2 rounded"
+      >
         {messages.map((msg, index) => (
           <div key={index} className={`p-2 my-1 rounded-lg ${msg.type === 'sent' ? 'bg-blue-500 text-white text-right' : 'bg-gray-300 text-black text-left'}`}>
             {msg.text}
@@ -118,7 +124,6 @@ const IncidentReport: React.FC = () => {
             <span className="w-3 h-3 bg-gray-500 rounded-full animate-pulse"></span>
           </div>
         )}
-        <div ref={messagesEndRef} />
       </div>
       {!isChatEnded && (
         <form onSubmit={handleSubmit} className="mt-4 flex">
