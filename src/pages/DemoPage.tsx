@@ -57,10 +57,10 @@ const DemoPage = () => {
               <div className="text-sm">
                 <p className="font-medium text-gray-900">How to use this demo:</p>
                 <ul className="mt-2 list-disc pl-5 text-gray-600">
-                  <li>Ask about school administrative tasks</li>
-                  <li>Try scheduling a meeting or organizing an event</li>
-                  <li>Request information about student records or attendance</li>
-                  <li>Ask for help with parent communication</li>
+                  <li>Play the role of a student reporting an incident.</li>
+                  <li>You will be guided to explain what has happened to you and who was involved.</li>
+                  <li>You will be encouraged to share your feelings regarding the incident.</li>
+                  <li>At the end of the chat, your report will be shared with the pastoral team.</li>
                 </ul>
               </div>
             </div>
