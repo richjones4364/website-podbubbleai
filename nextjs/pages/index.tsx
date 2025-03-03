@@ -1,5 +1,4 @@
 // import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import { School, BookOpen, Clock, Award, ChevronRight, MessageSquare, Users, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -24,15 +23,4 @@ function HomePage() {
   );
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/demo" element={<DemoPage />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
+export default HomePage;

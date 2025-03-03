@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 
 // Ensure the API key is properly loaded
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
