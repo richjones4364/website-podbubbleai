@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"], // Include all files within the src directory
+  "include": ["src/**/*", "nextjs/components/CTASection.tsx"], // Include all files within the src directory
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }

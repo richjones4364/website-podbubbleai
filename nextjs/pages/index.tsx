@@ -7,8 +7,8 @@ import HeroSection from './components/HeroSection';
 import FeatureSection from './components/FeatureSection';
 import LeadCaptureSection from './components/LeadCaptureSection';
 // import TestimonialSection from './components/TestimonialSection';
-import CTASection from './components/CTASection';
-import DemoPage from './pages/DemoPage';
+import CTASection from '../components/CTASection';
+import DemoPage from './DemoPage';
 
 function HomePage() {
   return (
