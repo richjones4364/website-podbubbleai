@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { jsPDF } from 'jspdf';
 
 // Ensure the API key is properly loaded
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 console.log("API Key Loaded:", apiKey);
 
 const IncidentReport: React.FC = () => {
