@@ -64,7 +64,7 @@ const Navbar = () => {
               Testimonials
             </a>
             <a
-              href="/demo"
+              href="/DemoPage"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
