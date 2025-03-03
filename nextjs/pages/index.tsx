@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 // import { School, BookOpen, Clock, Award, ChevronRight, MessageSquare, Users, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

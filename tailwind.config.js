@@ -8,5 +8,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins:,
+  plugins:[], // Corrected line: added an empty array
 }
