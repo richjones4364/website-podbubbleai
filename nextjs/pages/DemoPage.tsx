@@ -1,4 +1,5 @@
 import { Bot, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import IncidentReport from '../components/IncidentReport';
@@ -19,13 +20,13 @@ const DemoPage = () => {
               <p className="mt-4 text-xl">
                 Try our Student Incident Report Agent and see how it can support your pastoral team.
               </p>
-              <a 
+              <Link 
                 href="/" 
                 className="mt-8 inline-flex items-center text-white bg-orange-600 hover:bg-orange-700 px-5 py-3 rounded-md text-base font-medium"
               >
                 <ArrowLeft className="mr-2 h-5 w-5" />
                 Back to Home
-              </a>
+              </Link>
             </div>
           </div>
         </div>

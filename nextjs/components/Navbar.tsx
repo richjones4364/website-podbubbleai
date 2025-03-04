@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
@@ -10,23 +11,23 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <a href="/">
+              <Link href="/">
               <span className="text-orange-500 font-bold text-2xl">PodBubble</span><span className="text-blue-500 font-bold text-2xl">AI</span>
-              </a>
+              </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {/* <a href="#features" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Features
-              </a> */}
+              </Link> */}
               {/* <a href="#testimonials" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Testimonials
-              </a> */}
-              <a href="/DemoPage" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+              </Link> */}
+              <Link href="/DemoPage" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Demo
-              </a>
+              </Link>
               {/* <a href="#contact" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Contact
-              </a> */}
+              </Link> */}
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -49,34 +50,34 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
-            {/* <a
+            {/* <Link
               href="#features"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Features
-            </a> */}
-            {/* <a
+            </Link> */}
+            {/* <Link
               href="#testimonials"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Testimonials
-            </a> */}
-            <a
+            </Link> */}
+            <Link
               href="/DemoPage"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Demo
-            </a>
-            {/* <a
+            </Link>
+            {/* <Link
               href="#contact"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
-            </a>
+            </Link>
             <div className="pl-3 pr-4 py-2">
               <button className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium">
                 Book a Demo
