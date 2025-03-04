@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import jsPDF from 'jspdf';
 
 // Ensure the API key is properly loaded
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY;
 console.log("API Key Loaded:", apiKey);
 if (!apiKey) {
   throw new Error('Gemini API key is not configured');
