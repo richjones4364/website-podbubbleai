@@ -2,6 +2,7 @@
 export default async function handler(req, res) {
     if (req.method === 'POST') {
       try {
+        console.log('Request Body:', req.body);
         const { message, history } = req.body;
         const geminiApiKey = process.env.GEMINI_API_KEY;
   
@@ -9,19 +10,32 @@ export default async function handler(req, res) {
           return res.status(500).json({ error: 'Gemini API key not configured' });
         }
   
-        // Implement your Gemini API call here
-        // Example (replace with your actual Gemini API logic):
-        const geminiResponse = await fetch('YOUR_GEMINI_API_ENDPOINT', {
+        const geminiResponse = await fetch('https://api.generativeai.google.com/v1beta2/models/gemini-2.0-flash:generateMessage', {  // Updated endpoint
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'YOUR_API_KEY_HEADER': geminiApiKey, //Replace with your api key header.
+            'Authorization': `Bearer ${geminiApiKey}`,  // Updated authorization header
           },
-          body: JSON.stringify({ message, history }),
+          body: JSON.stringify({
+            prompt: {
+              messages: [
+                { content: message }
+              ]
+            }
+          }),
         });
   
+        console.log('Gemini Response:', geminiResponse);
+  
         if (!geminiResponse.ok) {
-          const geminiError = await geminiResponse.json();
+          let geminiError;
+          try {
+            geminiError = await geminiResponse.json();
+            console.error('Gemini API Error:', geminiError);
+          } catch (err) {
+            console.error('Error parsing Gemini API error:', err);
+            geminiError = { message: 'Unknown error from Gemini API' };
+          }
           return res.status(geminiResponse.status).json({ error: geminiError });
         }
   
