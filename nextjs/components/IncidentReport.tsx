@@ -3,8 +3,13 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import jsPDF from 'jspdf';
 
 // Ensure the API key is properly loaded
+<<<<<<< HEAD:nextjs/components/IncidentReport.tsx
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 console.log("API Key Loaded:", apiKey);
+=======
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+>>>>>>> main:src/components/IncidentReport.tsx
 
 const IncidentReport: React.FC = () => {
   const [messages, setMessages] = useState<{ type: string; text: string }[]>([]);
