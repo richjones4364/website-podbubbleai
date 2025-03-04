@@ -4,6 +4,7 @@ export default async function handler(req, res) {
             console.log('Request Body:', req.body);
             const { message } = req.body;
             const geminiApiKey = process.env.GEMINI_API_KEY;
+            console.log('GEMINI_API_KEY:', geminiApiKey.slice(0, 5) + '...' + geminiApiKey.slice(-5));
 
             if (!geminiApiKey) {
                 return res.status(500).json({ error: 'Gemini API key not configured' });
