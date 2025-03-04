@@ -1,4 +1,3 @@
-
 import { Bot, ArrowLeft } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -106,6 +105,13 @@ const DemoPage = () => {
       <Footer />
     </div>
   );
+};
+
+export const getServerSideProps = async () => {
+  // Fetch any data needed for the page here
+  return {
+    props: {}, // will be passed to the page component as props
+  };
 };
 
 export default DemoPage;
