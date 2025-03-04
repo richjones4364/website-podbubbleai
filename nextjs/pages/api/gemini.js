@@ -10,41 +10,48 @@ export default async function handler(req, res) {
           return res.status(500).json({ error: 'Gemini API key not configured' });
         }
   
-        const geminiResponse = await fetch('https://api.generativeai.google.com/v1beta2/models/gemini-2.0-flash:generateMessage', {  // Updated endpoint
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${geminiApiKey}`,  // Updated authorization header
-          },
-          body: JSON.stringify({
-            prompt: {
-              messages: [
-                { content: message }
-              ]
+        console.log('Gemini API key present'); // Log presence, not value
+  
+        try {
+          const geminiResponse = await fetch('https://api.generativeai.google.com/v1beta2/models/gemini-2.0-flash:generateMessage', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${geminiApiKey}`,
+            },
+            body: JSON.stringify({
+              prompt: {
+                messages: [{ content: message }],
+              },
+            }),
+          });
+  
+          console.log('Gemini Response Status:', geminiResponse.status);
+          console.log('Gemini Response:', geminiResponse);
+  
+          if (!geminiResponse.ok) {
+            let geminiError;
+            try {
+              geminiError = await geminiResponse.json();
+              console.error('Gemini API Error:', geminiError);
+            } catch (err) {
+              console.error('Error parsing Gemini API error:', err);
+              geminiError = { message: 'Unknown error from Gemini API' };
             }
-          }),
-        });
-  
-        console.log('Gemini Response:', geminiResponse);
-  
-        if (!geminiResponse.ok) {
-          let geminiError;
-          try {
-            geminiError = await geminiResponse.json();
-            console.error('Gemini API Error:', geminiError);
-          } catch (err) {
-            console.error('Error parsing Gemini API error:', err);
-            geminiError = { message: 'Unknown error from Gemini API' };
+            return res.status(geminiResponse.status).json({ error: geminiError });
           }
-          return res.status(geminiResponse.status).json({ error: geminiError });
+  
+          const geminiData = await geminiResponse.json();
+          console.log('Gemini Data:', geminiData);
+  
+          res.status(200).json({ response: geminiData.response });
+        } catch (fetchError) {
+          console.error('Gemini Fetch Error:', fetchError);
+          return res.status(500).json({ error: 'Gemini Fetch Error' });
         }
-  
-        const geminiData = await geminiResponse.json();
-  
-        res.status(200).json({ response: geminiData.response });
       } catch (error) {
         console.error('API Route Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' });
       }
     } else {
       res.setHeader('Allow', ['POST']);
