@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
       try {
         console.log('Request Body:', req.body);
-        const { message, history } = req.body;
+        const { message } = req.body;
         const geminiApiKey = process.env.GEMINI_API_KEY;
   
         if (!geminiApiKey) {
