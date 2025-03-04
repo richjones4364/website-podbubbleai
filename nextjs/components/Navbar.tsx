@@ -49,28 +49,28 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="sm:hidden">
           <div className="pt-2 pb-3 space-y-1">
-            <a
+            {/* <a
               href="#features"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Features
-            </a>
-            <a
+            </a> */}
+            {/* <a
               href="#testimonials"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Testimonials
-            </a>
+            </a> */}
             <a
-              href="/demo"
+              href="/DemoPage"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               Demo
             </a>
-            <a
+            {/* <a
               href="#contact"
               className="text-gray-700 hover:bg-gray-50 hover:text-orange-500 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium"
               onClick={() => setIsMenuOpen(false)}
@@ -81,7 +81,7 @@ const Navbar = () => {
               <button className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium">
                 Book a Demo
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
