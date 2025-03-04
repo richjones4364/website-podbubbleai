@@ -1,86 +1,46 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import jsPDF from 'jspdf';
 
-// Ensure the API key is properly loaded
-const apiKey = process.env.GEMINI_API_KEY;
-console.log("API Key Loaded:", apiKey);
-if (!apiKey) {
-  throw new Error('Gemini API key is not configured');
-}
-const IncidentReport: React.FC = () => {
-  const [messages, setMessages] = useState<{ type: string; text: string }[]>([]);
-  const [message, setMessage] = useState('');
-  const [isFetching, setIsFetching] = useState(false);
-  const [isChatEnded, setIsChatEnded] = useState(false);
+// Define the Message type
+type Message = {
+  type: 'sent' | 'received';
+  text: string;
+};
+
+const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => {
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [message, setMessage] = useState<string>('');
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [, setTempSentMessage] = useState<string | null>(null);
-  const chatSessionRef = useRef<any>(null);
-
-  useEffect(() => {
-    if (!apiKey) {
-      console.error('Gemini API key is not configured');
-      setMessages([{ type: 'received', text: 'Error: API key is missing. Check configuration.' }]);
-      return;
-    }
-
-    const initializeChat = async () => {
-      try {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-          model: "gemini-2.0-flash",
-          systemInstruction: `You are a school counsellor named Mr. Jones. Your role is to listen to students reporting incidents. 
-          Keep responses simple (8-year-old reading level). Follow these steps:
-          1. Greet and introduce yourself.
-          2. Ask for the student's full name.
-          3. Ask for their tutor group.
-          4. Collect details about the incident: what happened, who was involved, and any witnesses.
-          5. Ask how they feel about it.
-          6. Ask if they have anything else to share.
-          7. Confirm that Miss Smith will be contacted and say "Click End Chat."`,
-          generationConfig: {
-            temperature: 0.2,
-            topP: 0.95,
-            topK: 40,
-            maxOutputTokens: 8192,
-          },
-        });
-
-        chatSessionRef.current = model.startChat({ history: [] });
-
-        // Send a welcome message
-        const result = await chatSessionRef.current.sendMessage("Hello");
-        setMessages([{ type: 'received', text: result.response.text() }]);
-      } catch (error) {
-        console.error('Initialization error:', error);
-        setMessages([{ type: 'received', text: 'Error initializing chat. Try again later.' }]);
-      }
-    };
-
-    initializeChat();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!chatSessionRef.current) {
-      setMessages(prev => [...prev, { type: 'received', text: 'Chat session not initialized.' }]);
-      return;
-    }
-
     const currentMessage = message.trim();
     if (!currentMessage) return;
-    
+
     setMessage('');
-    setTempSentMessage(currentMessage);
     setMessages(prev => [...prev, { type: 'sent', text: currentMessage }]);
     setIsFetching(true);
 
     try {
-      const result = await chatSessionRef.current.sendMessage(currentMessage);
-      const responseText = result.response.text();
-      setMessages(prev => [...prev, { type: 'received', text: responseText }]);
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: currentMessage,
+          history: messages.map(msg => ({ author: msg.type === 'sent' ? 'user' : 'bot', content: msg.text }))
+        }),
+      });
 
-      if (responseText.toLowerCase().includes('click end chat')) {
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      setMessages(prev => [...prev, { type: 'received', text: data.response }]);
+
+      if (data.response.toLowerCase().includes('click end chat')) {
         setIsChatEnded(true);
       }
     } catch (error) {
@@ -88,7 +48,6 @@ const IncidentReport: React.FC = () => {
       setMessages(prev => [...prev, { type: 'received', text: 'Error processing message.' }]);
     } finally {
       setIsFetching(false);
-      setTempSentMessage(null);
     }
   };
 
@@ -103,7 +62,6 @@ const IncidentReport: React.FC = () => {
   };
 
   useEffect(() => {
-    // Scroll the chat container to the bottom when messages change
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
@@ -112,12 +70,19 @@ const IncidentReport: React.FC = () => {
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-lg font-bold text-center mb-4">Incident Report Chat</h2>
-      <div 
+      <div
         ref={chatContainerRef}
         className="h-64 overflow-y-auto border p-2 rounded"
       >
         {messages.map((msg, index) => (
-          <div key={index} className={`p-2 my-1 rounded-lg ${msg.type === 'sent' ? 'bg-blue-500 text-white text-right' : 'bg-gray-300 text-black text-left'}`}>
+          <div 
+            key={index} 
+            className={`p-2 my-1 rounded-lg ${
+              msg.type === 'sent' 
+                ? 'bg-blue-500 text-white text-right' 
+                : 'bg-gray-300 text-black text-left'
+            }`}
+          >
             {msg.text}
           </div>
         ))}
@@ -142,8 +107,11 @@ const IncidentReport: React.FC = () => {
         </form>
       )}
       {isChatEnded && (
-        <button onClick={generatePDF} className="mt-4 w-full p-2 bg-green-500 text-white rounded">
-          End Chat & Download PDF
+        <button 
+          onClick={generatePDF} 
+          className="w-full mt-4 p-2 bg-green-500 text-white rounded"
+        >
+          Generate PDF Report
         </button>
       )}
     </div>
