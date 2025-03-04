@@ -5,7 +5,7 @@ const LeadCaptureSection = () => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const [fetchError, setFetchError] = useState(''); // New state for fetch errors
+  const [fetchError, setFetchError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,8 +15,8 @@ const LeadCaptureSection = () => {
       return;
     }
 
-    setError(''); // Clear previous validation errors
-    setFetchError(''); // Clear previous fetch errors
+    setError('');
+    setFetchError('');
 
     try {
       const response = await fetch(
@@ -48,9 +48,25 @@ const LeadCaptureSection = () => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              'Work Smarter, Not Harder'
+              &apos;Work Smarter, Not Harder&apos;
             </h2>
-            {/* ... rest of the text content ... */}
+            <p className="mt-4 text-xl text-gray-600">
+              Discover how PodBubble&apos;s AI can transform your school&apos;s administrative workflow.
+            </p>
+            <div className="mt-6 grid space-y-4">
+              <div className="flex items-center">
+                <CheckCircle className="h-6 w-6 text-orange-500 mr-3" />
+                <span>Reduce staff workload by up to 70%</span>
+              </div>
+              <div className="flex items-center">
+                <CheckCircle className="h-6 w-6 text-orange-500 mr-3" />
+                <span>Automate routine administrative tasks</span>
+              </div>
+              <div className="flex items-center">
+                <CheckCircle className="h-6 w-6 text-orange-500 mr-3" />
+                <span>Focus more on student support</span>
+              </div>
+            </div>
           </div>
 
           <div className="mt-12 lg:mt-0">
@@ -71,7 +87,7 @@ const LeadCaptureSection = () => {
                 <>
                   <h3 className="text-xl font-medium text-center text-gray-900">Get your free guide</h3>
                   <p className="mt-2 text-center text-gray-600">
-                    Enter your email below to receive 'Work Smarter, Not Harder'.
+                    Enter your email below to receive &apos;Work Smarter, Not Harder&apos;.
                   </p>
                   <form className="mt-6" onSubmit={handleSubmit}>
                     <div>

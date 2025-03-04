@@ -1,4 +1,3 @@
-// import React from 'react';
 import { Clock, MessageSquare, Users, Sparkles } from 'lucide-react';
 
 const features = [
@@ -19,7 +18,7 @@ const features = [
   },
   {
     name: 'Smart Automation',
-    description: "Our AI are tuned to your school's specific needs and adapted over time, becoming more efficient and personalised to your requirements.",
+    description: "Our AI are tuned to your school&apos;s specific needs and adapted over time, becoming more efficient and personalised to your requirements.",
     icon: Sparkles,
   },
 ];
@@ -34,10 +33,10 @@ const FeatureSection = () => {
             A better way to manage your school
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            PodBubble's AI agents work tirelessly to reduce administrative burden, allowing your school to operate more efficiently.
+            PodBubble&apos;s AI agents work tirelessly to reduce administrative burden, allowing your school to operate more efficiently.
           </p>
         </div>
-
+        
         <div className="mt-10">
           <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
             {features.map((feature) => (

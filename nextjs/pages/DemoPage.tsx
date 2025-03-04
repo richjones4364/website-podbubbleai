@@ -85,7 +85,7 @@ const DemoPage = () => {
                 </div>
                 <h3 className="text-lg font-medium text-gray-900">Train Your AI</h3>
                 <p className="mt-2 text-gray-600">
-                  We build and train your AI on your school's policies, procedures, and curriculum.
+                  We build and train your AI on your school&apos;s policies, procedures, and curriculum.
                 </p>
               </div>
               
@@ -93,7 +93,7 @@ const DemoPage = () => {
                 <div className="flex items-center justify-center h-12 w-12 rounded-md bg-orange-500 text-white mb-4">
                   <span className="text-xl font-bold">3</span>
                 </div>
-                <h3 className="text-lg font-medium text-gray-900">Automate & Save Time</h3>
+                <h3 className="text-lg font-medium text-gray-900">Automate &amp; Save Time</h3>
                 <p className="mt-2 text-gray-600">
                   Watch as routine tasks are handled automatically, freeing up your staff to focus on what matters.
                 </p>
