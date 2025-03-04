@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import jsPDF from 'jspdf';
 
 // Define the Message type
-type Message = {
+export interface Message {
   type: 'sent' | 'received';
   text: string;
-};
+}
 
 const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -20,7 +20,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
     if (!currentMessage) return;
 
     setMessage('');
-    setMessages(prev => [...prev, { type: 'sent', text: currentMessage }]);
+    setMessages((prev) => [...prev, { type: 'sent', text: currentMessage }]);
     setIsFetching(true);
 
     try {
@@ -29,7 +29,10 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: currentMessage,
-          history: messages.map(msg => ({ author: msg.type === 'sent' ? 'user' : 'bot', content: msg.text }))
+          history: messages.map((msg) => ({
+            author: msg.type === 'sent' ? 'user' : 'bot',
+            content: msg.text,
+          })),
         }),
       });
 
@@ -38,14 +41,17 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       }
 
       const data = await response.json();
-      setMessages(prev => [...prev, { type: 'received', text: data.response }]);
+      setMessages((prev) => [...prev, { type: 'received', text: data.response }]);
 
       if (data.response.toLowerCase().includes('click end chat')) {
         setIsChatEnded(true);
       }
     } catch (error) {
       console.error('Chat error:', error);
-      setMessages(prev => [...prev, { type: 'received', text: 'Error processing message.' }]);
+      setMessages((prev) => [
+        ...prev,
+        { type: 'received', text: 'Error processing message.' },
+      ]);
     } finally {
       setIsFetching(false);
     }
@@ -70,16 +76,13 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-lg font-bold text-center mb-4">Incident Report Chat</h2>
-      <div
-        ref={chatContainerRef}
-        className="h-64 overflow-y-auto border p-2 rounded"
-      >
+      <div ref={chatContainerRef} className="h-64 overflow-y-auto border p-2 rounded">
         {messages.map((msg, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className={`p-2 my-1 rounded-lg ${
-              msg.type === 'sent' 
-                ? 'bg-blue-500 text-white text-right' 
+              msg.type === 'sent'
+                ? 'bg-blue-500 text-white text-right'
                 : 'bg-gray-300 text-black text-left'
             }`}
           >
@@ -107,8 +110,8 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         </form>
       )}
       {isChatEnded && (
-        <button 
-          onClick={generatePDF} 
+        <button
+          onClick={generatePDF}
           className="w-full mt-4 p-2 bg-green-500 text-white rounded"
         >
           Generate PDF Report
