@@ -31,11 +31,18 @@ export default async function handler(req, res) {
         const chatSession = model.startChat({
             generationConfig,
             history: history.map(msg => ({
-                parts: [{ text: msg.text }]
+                role: msg.type === 'sent' ? 'user' : 'assistant',
+                content: {
+                    parts: [{ text: msg.text }]
+                }
             })),
         });
 
-        const result = await chatSession.sendMessage(message);
+        const result = await chatSession.sendMessage({
+            content: {
+                parts: [{ text: message }]
+            }
+        });
 
         res.status(200).json({ response: result.response.text() });
     } catch (error) {
