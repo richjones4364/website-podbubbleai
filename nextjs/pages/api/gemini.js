@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -30,7 +30,9 @@ export default async function handler(req, res) {
     try {
         const chatSession = model.startChat({
             generationConfig,
-            history: history.map(msg => ({ role: msg.type === 'sent' ? 'user' : 'assistant', content: msg.text })),
+            history: history.map(msg => ({
+                parts: [{ text: msg.text }]
+            })),
         });
 
         const result = await chatSession.sendMessage(message);
