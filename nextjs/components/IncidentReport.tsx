@@ -53,7 +53,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
             console.error('Chat error:', error);
             setMessages(prevMessages => [...prevMessages, { 
                 type: 'received', 
-                text: `Error processing message: ${error instanceof Error ? error.message : 'Unknown error'}` 
+                text: `Error processing message: ${error instanceof Error ? error.message : 'Unknown error'}`
             }]);
         } finally {
             setIsFetching(false);
