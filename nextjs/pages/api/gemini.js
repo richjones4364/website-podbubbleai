@@ -1,64 +1,41 @@
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
-        res.setHeader('Allow', ['POST']);
-        return res.status(405).end(`Method ${req.method} Not Allowed`);
+        return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
+
+    console.log('✅ Received Request Body:', req.body);
+
+    const geminiApiKey = process.env.GEMINI_API_KEY;
+    if (!geminiApiKey) {
+        console.error('❌ Gemini API key is missing');
+        return res.status(500).json({ error: 'Gemini API key not configured' });
+    }
+
+    console.log('🔑 Gemini API Key is set');
 
     try {
-        console.log('Request Body:', req.body);
-        const { message } = req.body;
-        const geminiApiKey = process.env.GEMINI_API_KEY;
+        const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: req.body.message }] }]
+            }),
+        });
 
-        if (!geminiApiKey) {
-            console.error('Gemini API key not configured');
-            return res.status(500).json({ error: 'Gemini API key not configured' });
-        }
-
-        console.log('Gemini API key present');
-
-        const geminiResponse = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: message }] }],
-                }),
-            }
-        );
-
-        console.log('Gemini Response Status:', geminiResponse.status);
+        console.log('🌍 Google API Response Status:', geminiResponse.status);
+        
+        const geminiData = await geminiResponse.json();
+        console.log('📡 Google API Full Response:', JSON.stringify(geminiData, null, 2));
 
         if (!geminiResponse.ok) {
-            const geminiError = await geminiResponse.json();
-            console.error('Gemini API Error:', geminiError);
-            return res.status(geminiResponse.status).json({ error: geminiError });
+            console.error('❌ Google API returned an error:', geminiData);
+            return res.status(geminiResponse.status).json({ error: geminiData });
         }
 
-        const geminiData = await geminiResponse.json();
-        console.log('Gemini Data:', geminiData);
-
-        // ✅ Extract the actual text response safely
-        const responseText = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || null;
-
-        if (!responseText) {
-            console.error('No valid response from Gemini API');
-            return res.status(500).json({ error: 'Invalid Gemini API response' });
-        }
-
-        // ✅ Send the extracted response to the frontend
-        res.status(200).json({ response: responseText });
+        console.log('✅ Sending Response to Frontend:', JSON.stringify(geminiData, null, 2));
+        res.status(200).json({ response: geminiData });
     } catch (error) {
-        console.error('API Route Error:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        console.error('🚨 Fetch Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }
-
-// ✅ Ensure request body is parsed properly
-export const config = {
-    api: {
-        bodyParser: true,
-    },
-};
