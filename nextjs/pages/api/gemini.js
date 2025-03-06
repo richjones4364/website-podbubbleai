@@ -24,16 +24,18 @@ export default async function handler(req, res) {
 
         console.log('🌍 Google API Response Status:', geminiResponse.status);
         
-        const geminiData = await geminiResponse.json();
-        console.log('📡 Google API Full Response:', JSON.stringify(geminiData, null, 2));
+        const data = await response.json();
+        console.log("Gemini API Response:", data);
 
         if (!geminiResponse.ok) {
             console.error('❌ Google API returned an error:', geminiData);
             return res.status(geminiResponse.status).json({ error: geminiData });
         }
 
-        console.log('✅ Sending Response to Frontend:', JSON.stringify(geminiData, null, 2));
-        res.status(200).json({ response: geminiData });
+        // Adjust the response structure according to the actual API response
+        const geminiText = data.response || 'No response text.';
+setMessages(prevMessages => [...prevMessages, { type: 'received', text: geminiText }]);
+        res.status(200).json({ response: responseContent });
     } catch (error) {
         console.error('🚨 Fetch Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
