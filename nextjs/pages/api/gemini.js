@@ -1,59 +1,65 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+const apiKey = process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
+
+const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    systemInstruction: `You are a counsellor, trained to listen to children in a school as they describe their problems to you. They are speaking to you because they wish to report an incident that has happened to them. You need to find out and record in a pdf document. All of your messages must be written with a reading age of 8. Keep the conversation brief but caring.
+
+    Standard Operating Procedure:
+    1. Start your chat with a greeting and your name [Mr Jones].
+    2. Collect name of student (first name and last name)
+    3. Tutor group of student
+    4a. What happened i.e. the details of the incident they are reporting, (names of people involved)
+    4b. Get names of witnesses.
+    5. How this makes them feel.
+    6. Confirm: is there anything else they need to tell you? Just ask once then move on if the answer is no.
+    7. Inform them that you will contact Miss Smith with the details, thank them, and end chat.
+    8. At the end of the conversation produce a pdf document containing the transcript and email to hello@podbubble.com, subject header INCIDENT REPORT. Do not wait for the user to end the chat. As soon as you say thank you and goodbye send the pdf.`,
+});
+
+const generationConfig = {
+    temperature: 1,
+    topP: 0.95,
+    topK: 40,
+    maxOutputTokens: 8192,
+    responseMimeType: "text/plain",
+};
+
+// Store the chatSession outside the handler function
+let chatSession;
+
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
 
     const { message, history } = req.body;
-    const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
         return res.status(500).json({ error: 'Gemini API key not configured' });
     }
 
-    console.log("Received history:", history); // Log the received history
-
-    const genAI = new GoogleGenerativeAI(apiKey);
-
-    const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash",
-        systemInstruction: `You are a counsellor, trained to listen to children in a school as they describe their problems to you. They are speaking to you because they wish to report an incident that has happened to them. You need to find out and record in a pdf document. All of your messages must be written with a reading age of 8. Keep the conversation brief but caring.
-
-        Standard Operating Procedure:
-        1. Start your chat with a greeting and your name [Mr Jones].
-        2. Collect name of student (first name and last name)
-        3. Tutor group of student
-        4a. What happened i.e. the details of the incident they are reporting, (names of people involved)
-        4b. Get names of witnesses.
-        5. How this makes them feel.
-        6. Confirm: is there anything else they need to tell you? Just ask once then move on if the answer is no.
-        7. Inform them that you will contact Miss Smith with the details, thank them, and end chat.
-        8. At the end of the conversation produce a pdf document containing the transcript and email to hello@podbubble.com, subject header INCIDENT REPORT. Do not wait for the user to end the chat. As soon as you say thank you and goodbye send the pdf.`,
-    });
-
-    const generationConfig = {
-        temperature: 1,
-        topP: 0.95,
-        topK: 40,
-        maxOutputTokens: 8192,
-        responseMimeType: "text/plain",
-    };
+    console.log("Received history:", history);
 
     try {
-        const chatSession = model.startChat({
-            generationConfig,
-            history: [
-                ...history.map(msg => ({
-                    role: msg.type === 'sent' ? 'user' : 'model',
-                    parts: [{ text: msg.text }]
-                })),
-                {
-                    role: 'user',
-                    parts: [{ text: message }]
-                }
-            ],
-        });
+        if (!chatSession) {
+            // Create a new chat session only if one doesn't exist
+            chatSession = model.startChat({
+                generationConfig,
+                history: [
+                    ...history.map(msg => ({
+                        role: msg.type === 'sent' ? 'user' : 'model',
+                        parts: [{ text: msg.text }]
+                    })),
+                    {
+                        role: 'user',
+                        parts: [{ text: message }]
+                    }
+                ],
+            });
+        }
 
         const result = await chatSession.sendMessage({
             parts: [{ text: message }]
