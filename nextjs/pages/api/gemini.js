@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenerativeAI, SchemaType } = require("@google/generative-ai");
 
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -33,6 +33,14 @@ const generationConfig = {
     topK: 40,
     maxOutputTokens: 8192,
     responseMimeType: "text/plain",
+    // Optionally configure a response schema
+    responseSchema: {
+        type: SchemaType.OBJECT,
+        properties: {
+            message: { type: SchemaType.STRING, description: "Response message", nullable: false },
+        },
+        required: ["message"],
+    },
 };
 
 export default async function handler(req, res) {
