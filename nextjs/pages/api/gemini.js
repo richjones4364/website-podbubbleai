@@ -41,10 +41,16 @@ export default async function handler(req, res) {
     try {
         const chatSession = model.startChat({
             generationConfig,
-            history: history.map(msg => ({
-                role: msg.type === 'sent' ? 'user' : 'model',
-                parts: [{ text: msg.text }]
-            })),
+            history: [
+                ...history.map(msg => ({
+                    role: msg.type === 'sent' ? 'user' : 'model',
+                    parts: [{ text: msg.text }]
+                })),
+                {
+                    role: 'user',
+                    parts: [{ text: message }]
+                }
+            ],
         });
 
         const result = await chatSession.sendMessage({
