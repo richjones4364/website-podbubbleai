@@ -8,12 +8,25 @@ export interface Message {
 }
 
 const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => {
-    // Correctly initialize messages as an array of Message objects
     const [messages, setMessages] = useState<Message[]>(initialMessages);
     const [message, setMessage] = useState<string>('');
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
     const chatContainerRef = useRef<HTMLDivElement>(null);
+
+    const systemMessage = `You are a counsellor, trained to listen to children in a school as they describe their problems to you. They are speaking to you because they wish to report an incident that has happened to them. You need to find out and record in a pdf document. All of your messages must be written with a reading age of 8. Keep the conversation brief but caring.
+
+Standard Operating Procedure:
+
+1. Start your chat with a greeting and your name [Mr Jones]. 
+2. Collect name of student (first name and last name)
+3. Tutor group of student 
+4a. What happened i.e. the details of the incident they are reporting, (names of people involved)
+4b. Get names of witnesses.
+5. How this makes them feel. 
+6. Confirm: is there anything else they need to tell you? Just ask once then move on if the answer is no.
+7. Inform them that you will contact Miss Smith with the details, thank them, and end chat.
+8. At the end of the conversation produce a pdf document containing the transcript and email to hello@podbubble.com, subject header INCIDENT REPORT. Do not wait for the user to end the chat. As soon as you say thank you and goodbye send the pdf.`;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,7 +41,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
             const response = await fetch('/api/gemini', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: currentMessage }),
+                body: JSON.stringify({ message: currentMessage, systemMessage }), // Include system message here
             });
 
             if (!response.ok) {
@@ -36,13 +49,11 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
             }
 
             const data = await response.json();
-            console.log("Gemini API Response:", data);
 
-            // Updated to access the response property from the API
-            const geminiText = data.response?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response text.';
+            const geminiText = data.response || 'No response text.';
             setMessages(prevMessages => [...prevMessages, { type: 'received', text: geminiText }]);
 
-            if (geminiText.toLowerCase().includes('click end chat')) {
+            if (geminiText.toLowerCase().includes('thank you and goodbye')) {
                 setIsChatEnded(true);
             }
         } catch (error) {
@@ -73,7 +84,6 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         // Add conversation with better formatting
         doc.setFontSize(10);
         messages.forEach((msg) => {
-            // Wrap text to prevent overflow
             const textLines = doc.splitTextToSize(
                 `${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`, 
                 180
@@ -81,8 +91,6 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
             
             doc.text(textLines, 10, y);
             y += textLines.length * 7;
-            
-            // Add some spacing between messages
             y += 3;
         });
         
