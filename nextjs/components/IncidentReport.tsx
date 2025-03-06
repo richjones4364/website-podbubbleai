@@ -7,8 +7,8 @@ export interface Message {
   text: string;
 }
 
-const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => { // Correctly type initialMessages as Message[]
-  const [messages, setMessages] = useState<Message[]>(initialMessages); // Correctly initialize messages as Message[]
+const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => {
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [message, setMessage] = useState<string>('');
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
@@ -20,8 +20,8 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
     if (!currentMessage) return;
 
     // Add the current message to the history
-    const newMessage: Message = { type: 'sent', text: currentMessage };
-    setMessages(prevMessages => [...prevMessages, newMessage]); // Correctly update messages as an array
+    const newMessages: Message[] = [...messages, { type: 'sent', text: currentMessage }];
+    setMessages(newMessages);
     setMessage('');
     setIsFetching(true);
 
@@ -31,7 +31,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: currentMessage,
-          history: [...messages, newMessage].map(msg => ({ // Correctly use map on messages (which is an array)
+          history: newMessages.map(msg => ({
             role: msg.type === 'sent' ? 'user' : 'model',
             parts: [{ text: msg.text }]
           }))
@@ -46,7 +46,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       const geminiText = data.response || 'No response text.';
 
       // Add the received message to the history
-      setMessages(prevMessages => [...prevMessages, { type: 'received', text: geminiText }]); // Correctly update messages as an array
+      setMessages((prevMessages) => [...prevMessages, { type: 'received', text: geminiText }]);
 
       // Check if the conversation has ended
       if (geminiText.toLowerCase().includes('click end chat')) {
@@ -54,13 +54,13 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       }
     } catch (error: any) {
       console.error('Chat error:', error);
-      setMessages(prevMessages => [
+      setMessages((prevMessages) => [
         ...prevMessages,
         {
           type: 'received',
           text: `Error processing message: ${error.message || 'Unknown error'}`,
         },
-      ]); // Correctly update messages as an array
+      ]);
     } finally {
       setIsFetching(false);
     }
@@ -82,7 +82,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
 
     // Add conversation with better formatting
     doc.setFontSize(10);
-    messages.forEach((msg) => { // Correctly use forEach on messages (which is an array)
+    messages.forEach((msg) => {
       const textLines = doc.splitTextToSize(`${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`, 180);
 
       doc.text(textLines, 10, y);
@@ -103,7 +103,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-lg font-bold text-center mb-4">Incident Report Chat</h2>
       <div ref={chatContainerRef} className="h-64 overflow-y-auto border p-2 rounded">
-        {messages.map((msg, index) => ( // Correctly use map on messages (which is an array)
+        {messages.map((msg, index) => (
           <div
             key={index}
             className={`p-2 my-1 rounded-lg ${msg.type === 'sent' ? 'bg-blue-500 text-white text-right' : 'bg-gray-300 text-black text-left'
