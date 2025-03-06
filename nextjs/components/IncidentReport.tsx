@@ -7,8 +7,9 @@ export interface Message {
     text: string;
 }
 
-const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => { // Corrected type
-    const [messages, setMessages] = useState<Message[]>(initialMessages); // Corrected type
+const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => {
+    // Correctly initialize messages as an array of Message objects
+    const [messages, setMessages] = useState<Message[]>(initialMessages);
     const [message, setMessage] = useState<string>('');
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
@@ -20,7 +21,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         if (!currentMessage) return;
 
         setMessage('');
-        setMessages((prevMessages) => [...prevMessages, { type: 'sent', text: currentMessage }]); // Correct update
+        setMessages(prevMessages => [...prevMessages, { type: 'sent', text: currentMessage }]);
         setIsFetching(true);
 
         try {
@@ -31,21 +32,25 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
             });
 
             if (!response.ok) {
-                throw new Error('API request failed');
+                throw new Error(`API request failed with status ${response.status}`);
             }
 
             const data = await response.json();
-            setMessages((prevMessages) => [...prevMessages, { type: 'received', text: data.response }]); // Correct update
+            console.log("Gemini API Response:", data);
 
-            if (data.response.toLowerCase().includes('click end chat')) {
+            // Updated to access the response property from the API
+            const geminiText = data.response?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response text.';
+            setMessages(prevMessages => [...prevMessages, { type: 'received', text: geminiText }]);
+
+            if (geminiText.toLowerCase().includes('click end chat')) {
                 setIsChatEnded(true);
             }
         } catch (error) {
             console.error('Chat error:', error);
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { type: 'received', text: 'Error processing message.' },
-            ]); // Correct update
+            setMessages(prevMessages => [...prevMessages, { 
+                type: 'received', 
+                text: `Error processing message: ${error instanceof Error ? error.message : 'Unknown error'}`
+            }]);
         } finally {
             setIsFetching(false);
         }
@@ -54,10 +59,33 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
     const generatePDF = () => {
         const doc = new jsPDF();
         let y = 10;
+        
+        // Add title
+        doc.setFontSize(16);
+        doc.text('Incident Report', 10, y);
+        y += 10;
+        
+        // Add date
+        doc.setFontSize(12);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, y);
+        y += 10;
+        
+        // Add conversation with better formatting
+        doc.setFontSize(10);
         messages.forEach((msg) => {
-            doc.text(`${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`, 10, y);
-            y += 10;
+            // Wrap text to prevent overflow
+            const textLines = doc.splitTextToSize(
+                `${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`, 
+                180
+            );
+            
+            doc.text(textLines, 10, y);
+            y += textLines.length * 7;
+            
+            // Add some spacing between messages
+            y += 3;
         });
+        
         doc.save('incident_report.pdf');
     };
 
@@ -97,8 +125,13 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Type your message..."
                         className="flex-grow p-2 border rounded"
+                        disabled={isFetching}
                     />
-                    <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded">
+                    <button 
+                        type="submit" 
+                        className="ml-2 p-2 bg-blue-500 text-white rounded"
+                        disabled={isFetching}
+                    >
                         Send
                     </button>
                 </form>

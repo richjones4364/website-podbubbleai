@@ -6,6 +6,7 @@ export default async function handler(req, res) {
             const geminiApiKey = process.env.GEMINI_API_KEY;
 
             if (!geminiApiKey) {
+                console.error('Gemini API key not configured');
                 return res.status(500).json({ error: 'Gemini API key not configured' });
             }
 
