@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import jsPDF from 'jspdf';
 
-// Define the Message type
 export interface Message {
     type: 'sent' | 'received';
     text: string;
@@ -19,8 +18,8 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         const currentMessage = message.trim();
         if (!currentMessage) return;
 
-        const newMessages: Message[] = [...messages, { type: 'sent', text: currentMessage }];
-        setMessages(newMessages);
+        // Correctly update messages as an array
+        setMessages(prevMessages => [...prevMessages, { type: 'sent', text: currentMessage }]);
         setMessage('');
         setIsFetching(true);
 
@@ -30,7 +29,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: currentMessage,
-                    history: newMessages.map(msg => ({
+                    history: [...messages, { type: 'sent', text: currentMessage }].map(msg => ({
                         role: msg.type === 'sent' ? 'user' : 'model',
                         parts: [{ text: msg.text }]
                     }))
@@ -43,6 +42,8 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
 
             const data = await response.json();
             const geminiText = data.response || 'No response text.';
+
+            // Correctly update messages as an array
             setMessages(prevMessages => [...prevMessages, { type: 'received', text: geminiText }]);
 
             if (geminiText.toLowerCase().includes('thank you and goodbye')) {
@@ -50,6 +51,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
             }
         } catch (error) {
             console.error('Chat error:', error);
+            // Correctly update messages as an array
             setMessages(prevMessages => [...prevMessages, {
                 type: 'received',
                 text: `Error processing message: ${error instanceof Error ? error.message : 'Unknown error'}`
@@ -69,6 +71,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, y);
         y += 10;
         doc.setFontSize(10);
+        // Correctly use forEach on messages (which is now an array)
         messages.forEach((msg) => {
             const textLines = doc.splitTextToSize(
                 `${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`,
@@ -91,6 +94,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
         <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
             <h2 className="text-lg font-bold text-center mb-4">Incident Report Chat</h2>
             <div ref={chatContainerRef} className="h-64 overflow-y-auto border p-2 rounded">
+                {/* Correctly use map on messages (which is now an array) */}
                 {messages.map((msg, index) => (
                     <div
                         key={index}
