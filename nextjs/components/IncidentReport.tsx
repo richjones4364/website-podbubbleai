@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import jsPDF from 'jspdf';
 
+// Define the Message type
 export interface Message {
     type: 'sent' | 'received';
     text: string;

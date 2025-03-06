@@ -27,9 +27,6 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-// Store the chatSession outside the handler function
-let chatSession;
-
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
@@ -41,25 +38,14 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Gemini API key not configured' });
     }
 
-    console.log("Received history:", history);
-
     try {
-        if (!chatSession) {
-            // Create a new chat session only if one doesn't exist
-            chatSession = model.startChat({
-                generationConfig,
-                history: [
-                    ...history.map(msg => ({
-                        role: msg.type === 'sent' ? 'user' : 'model',
-                        parts: [{ text: msg.text }]
-                    })),
-                    {
-                        role: 'user',
-                        parts: [{ text: message }]
-                    }
-                ],
-            });
-        }
+        const chatSession = model.startChat({
+            generationConfig,
+            history: history.map(msg => ({
+                role: msg.type === 'sent' ? 'user' : 'model',
+                parts: [{ text: msg.text }]
+            })),
+        });
 
         const result = await chatSession.sendMessage({
             parts: [{ text: message }]
