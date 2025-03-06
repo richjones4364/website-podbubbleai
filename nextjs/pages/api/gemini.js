@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Gemini API key not configured' });
     }
 
-    console.log('🔑 Gemini API Key is set');
+    
 
     try {
         const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`, {
@@ -22,10 +22,10 @@ export default async function handler(req, res) {
             }),
         });
 
-        console.log('🌍 Google API Response Status:', geminiResponse.status);
+        
         
         const data = await response.json();
-        console.log("Gemini API Response:", data);
+        
 
         if (!geminiResponse.ok) {
             console.error('❌ Google API returned an error:', geminiData);
