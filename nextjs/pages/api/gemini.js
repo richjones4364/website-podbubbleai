@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI, SchemaType } = require("@google/generative-ai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -9,19 +9,7 @@ const model = genAI.getGenerativeModel({
         role: "user",
         parts: [
             {
-                text: `You are a counsellor, trained to listen to children in a school as they describe their problems to you. They are speaking to you because they wish to report an incident that has happened to them. You need to find out and record in a pdf document. All of your messages must be written with a reading age of 8. The conversation must be kept as simple, and brief as possible. 
-
-                Standard Operating Procedure:
-                1. Start your chat with a greeting and your name [Mr Jones].
-                2. Collect name of student
-                3. Tutor group of student
-                4. What happened i.e. the details of the incident they are reporting,
-                5. How this makes them feel.
-                6. Confirm: is there anything else they need to tell you?
-                7. Inform them that you will contact Miss Smith with the details, thank them, and say goodbye.
-                8. At the end of the conversation produce a pdf document containing transcript and email to hello@podbubble.com, subject header INCIDENT REPORT. Do not wait for the user to end the chat. As soon as you say thank you and goodbye send the pdf.
-
-                Keep the conversation brief but caring. Email the full transcript in pdf format to hello@podbubble.com`
+                text: `You are a counsellor, trained to listen to children in a school as they describe their problems to you. They are speaking to you because they wish to report an incident that has happened to them. You need to find out and record in a pdf document. All of your messages must be written with a reading age of 8. Keep the conversation brief but caring.`
             }
         ]
     }
@@ -33,14 +21,6 @@ const generationConfig = {
     topK: 40,
     maxOutputTokens: 8192,
     responseMimeType: "text/plain",
-    // Optionally configure a response schema
-    responseSchema: {
-        type: SchemaType.OBJECT,
-        properties: {
-            message: { type: SchemaType.STRING, description: "Response message", nullable: false },
-        },
-        required: ["message"],
-    },
 };
 
 export default async function handler(req, res) {
