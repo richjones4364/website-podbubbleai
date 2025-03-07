@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import jsPDF from 'jspdf';
 
-// Define the Message type
+// Define the Message type - now just for UI display
 export interface Message {
   type: 'sent' | 'received';
   text: string;
@@ -19,9 +19,8 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
     const currentMessage = message.trim();
     if (!currentMessage) return;
 
-    // Add the current message to the history
-    const newMessages: Message[] = [...messages, { type: 'sent', text: currentMessage }];
-    setMessages(newMessages);
+    // Add the current message to the UI
+    setMessages((prevMessages) => [...prevMessages, { type: 'sent', text: currentMessage }]);
     setMessage('');
     setIsFetching(true);
 
@@ -29,23 +28,19 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       const response = await fetch('/api/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: currentMessage,
-          history: newMessages.map(msg => ({
-            role: msg.type === 'sent' ? 'user' : 'model',
-            parts: [{ text: msg.text }]
-          }))
-        }),
+        body: JSON.stringify({ message: currentMessage }), // Just send the current message
       });
 
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+        const errorData = await response.json(); // Try to get detailed error info
+        const errorMessage = errorData.error || `API request failed with status ${response.status}`;
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       const geminiText = data.response || 'No response text.';
 
-      // Add the received message to the history
+      // Add the received message to the UI
       setMessages((prevMessages) => [...prevMessages, { type: 'received', text: geminiText }]);
 
       // Check if the conversation has ended
