@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
 
 // Define the Message type - now just for UI display
 export interface Message {
