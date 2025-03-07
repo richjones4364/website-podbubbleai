@@ -13,6 +13,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null); // Ref for the input field
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +45,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       setMessages((prevMessages) => [...prevMessages, { type: 'received', text: geminiText }]);
 
       // Check if the conversation has ended
-      if (geminiText.toLowerCase().includes('click end chat')) {
+      if (geminiText.toLowerCase().includes('inform them that you will contact miss smith with the details')) {
         setIsChatEnded(true);
       }
     } catch (error: any) {
@@ -58,6 +59,10 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       ]);
     } finally {
       setIsFetching(false);
+      // Focus the input field after fetching is complete
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   };
 
@@ -92,6 +97,10 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
+    // Focus the input field on component mount
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [messages]);
 
   return (
@@ -116,6 +125,7 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       {!isChatEnded && (
         <form onSubmit={handleSubmit} className="mt-4 flex">
           <input
+            ref={inputRef} // Attach the ref to the input field
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
