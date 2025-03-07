@@ -19,7 +19,7 @@ const systemInstruction = `You are a counsellor, trained to listen to children i
 
 Standard Operating Procedure:
 
-1. Greet the user, use their name if they have given it. 
+1. Greet the user, use their name if they have given it. Your name is Lucy. 
 
  2. Collect name of student (first name and last name, both are essential)
 
@@ -38,8 +38,9 @@ Standard Operating Procedure:
 7. Inform them that you will contact Miss Smith with the details, thank them, and end chat. Do not wait for the user to end the chat. 
 `;
 
-// Chat state is maintained outside the handler function.
+// Chat state and history are maintained outside the handler function.
 let chat = null;
+let conversationHistory = []; // Store the entire conversation here
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -69,12 +70,19 @@ export default async function handler(req, res) {
                 ],
                 generationConfig,
             });
+            conversationHistory.push({ role: "user", text: systemInstruction }); // Add system instruction to history
+
         }
 
         const result = await chat.sendMessage(message);
         console.log("Response from Gemini:", JSON.stringify(result, null, 2));
+        const aiResponse = result.response.text();
 
-        res.status(200).json({ response: result.response.text() });
+        // Update the conversation history
+        conversationHistory.push({ role: "user", text: message });
+        conversationHistory.push({ role: "model", text: aiResponse });
+
+        res.status(200).json({ response: aiResponse, conversationHistory }); // Send back the conversation history
     } catch (error) {
         console.error('Error communicating with AI agent:', error);
         console.error("Error Details:", JSON.stringify(error, null, 2));

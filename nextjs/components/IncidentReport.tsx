@@ -105,7 +105,7 @@ const IncidentReport = () => {
 
   useEffect(() => {
     // Add the initial message to the chat
-    setMessages([{ type: 'received', text: "Hi, I'm Lucy. I'd like to help. Can you tell me your name?" }]);
+    setMessages([{ type: 'received', text: "👋 Hi, I'm Lucy. I'd like to help. Can you tell me your name?" }]);
   }, []);
 
   return (
