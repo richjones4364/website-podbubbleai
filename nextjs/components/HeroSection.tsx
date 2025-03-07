@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 const HeroSection = () => {
   return (
@@ -40,10 +41,12 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img
+        <Image
           className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
           src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1050&amp;q=80"
           alt="Students in a classroom with technology"
+          width={1050}
+          height={1050}
         />
       </div>
     </div>

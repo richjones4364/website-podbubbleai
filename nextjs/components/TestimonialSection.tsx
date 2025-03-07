@@ -1,6 +1,15 @@
 import React from 'react';
+import Image from 'next/image';
 
-const testimonials = [
+// Define the Testimonial type
+interface Testimonial {
+  content: string;
+  author: string;
+  role: string;
+  image: string;
+}
+
+const testimonials: Testimonial[] = [
   {
     content:
       'PodBubble has transformed how we handle administrative tasks. Our staff now has more time to focus on teaching and student support. The AI agents are remarkably effective at managing routine communications.',
@@ -65,10 +74,12 @@ const TestimonialSection = () => {
               <div className="px-6 py-4 bg-gray-50">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img
+                    <Image
                       className="h-10 w-10 rounded-full"
                       src={testimonial.image}
                       alt=""
+                      width={40} // Adjust as needed
+                      height={40} // Adjust as needed
                     />
                   </div>
                   <div className="ml-3">
