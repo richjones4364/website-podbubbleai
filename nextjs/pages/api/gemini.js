@@ -19,7 +19,7 @@ const systemInstruction = `You are a counsellor, trained to listen to children i
 
 Standard Operating Procedure:
 
-1. Start your chat with a greeting and your name [Mr Jones]. 
+1. Greet the user, use their name if they have given it. 
 
  2. Collect name of student (first name and last name, both are essential)
 

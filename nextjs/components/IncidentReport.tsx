@@ -7,8 +7,8 @@ export interface Message {
   text: string;
 }
 
-const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+const IncidentReport = () => {
+  const [messages, setMessages] = useState<Message[]>([]); // Initialize with empty array
   const [message, setMessage] = useState<string>('');
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
@@ -102,6 +102,11 @@ const IncidentReport = ({ initialMessages }: { initialMessages: Message[] }) => 
       inputRef.current.focus();
     }
   }, [messages]);
+
+  useEffect(() => {
+    // Add the initial message to the chat
+    setMessages([{ type: 'received', text: "Hi, I'm Lucy. I'd like to help. Can you tell me your name?" }]);
+  }, []);
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
