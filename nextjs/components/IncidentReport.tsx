@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import jsPDF from 'jspdf';
 
 // Define the Message type - now just for UI display
 export interface Message {
@@ -7,20 +6,30 @@ export interface Message {
   text: string;
 }
 
+// Define the ConversationEntry type
+interface ConversationEntry {
+    role: 'user' | 'model';
+    text: string;
+}
+
+interface ErrorData {
+    error?: string;
+  }
+
 const IncidentReport = () => {
-  const [messages, setMessages] = useState<Message[]>([]); // Initialize with empty array
+  const [messages, setMessages] = useState<Message[]>([{ type: 'received', text: "👋 Hi, I'm Lucy. I'd like to help. Can you tell me your name?" }]);
   const [message, setMessage] = useState<string>('');
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null); // Ref for the input field
+  const inputRef = useRef<HTMLInputElement>(null);
+  //const [conversationHistory, setConversationHistory] = useState<ConversationEntry[]>([]); // Store the full conversation, no longer needed here
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const currentMessage = message.trim();
     if (!currentMessage) return;
 
-    // Add the current message to the UI
     setMessages((prevMessages) => [...prevMessages, { type: 'sent', text: currentMessage }]);
     setMessage('');
     setIsFetching(true);
@@ -29,26 +38,29 @@ const IncidentReport = () => {
       const response = await fetch('/api/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: currentMessage }), // Just send the current message
+        body: JSON.stringify({ message: currentMessage }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json(); // Try to get detailed error info
+        const errorData:ErrorData = await response.json(); //correct error type
         const errorMessage = errorData.error || `API request failed with status ${response.status}`;
         throw new Error(errorMessage);
       }
 
       const data = await response.json();
       const geminiText = data.response || 'No response text.';
+      
 
-      // Add the received message to the UI
       setMessages((prevMessages) => [...prevMessages, { type: 'received', text: geminiText }]);
 
-      // Check if the conversation has ended
       if (geminiText.toLowerCase().includes('inform them that you will contact miss smith with the details')) {
         setIsChatEnded(true);
+          // Dynamically import jsPDF and generate PDF
+          import('jspdf').then(({ default: jsPDF }) => {
+              generatePDF(jsPDF, data.conversationHistory);
+          });
       }
-    } catch (error: any) {
+    } catch (error) { //remove any
       console.error('Chat error:', error);
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -59,52 +71,54 @@ const IncidentReport = () => {
       ]);
     } finally {
       setIsFetching(false);
-      // Focus the input field after fetching is complete
       if (inputRef.current) {
         inputRef.current.focus();
       }
     }
   };
+    //Move generate PDF here
+    const generatePDF = (jsPDF: typeof import('jspdf').jsPDF, history: ConversationEntry[]) => { //correct jsPDF type
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    let y = 10;
+        const doc = new jsPDF();
+        let y = 10;
 
-    // Add title
-    doc.setFontSize(16);
-    doc.text('Incident Report', 10, y);
-    y += 10;
+        // Add title
+        doc.setFontSize(16);
+        doc.text('Incident Report', 10, y);
+        y += 10;
 
-    // Add date
-    doc.setFontSize(12);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, y);
-    y += 10;
+        // Add date
+        doc.setFontSize(12);
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 10, y);
+        y += 10;
 
-    // Add conversation with better formatting
-    doc.setFontSize(10);
-    messages.forEach((msg) => {
-      const textLines = doc.splitTextToSize(`${msg.type === 'sent' ? 'You' : 'Counsellor'}: ${msg.text}`, 180);
+        // Add conversation with better formatting
+        doc.setFontSize(10);
+        history.forEach((msg) => {
+            if (msg.role === "user") {
+                const textLines = doc.splitTextToSize(`You: ${msg.text}`, 180);
+                doc.text(textLines, 10, y);
+                y += textLines.length * 7;
+            } else if (msg.role === "model") {
+                const textLines = doc.splitTextToSize(`Lucy: ${msg.text}`, 180);
+                doc.text(textLines, 10, y);
+                y += textLines.length * 7;
+            }
+        });
 
-      doc.text(textLines, 10, y);
-      y += textLines.length * 7;
-      y += 3;
-    });
-
-    doc.save('incident_report.pdf');
-  };
+        doc.save('incident_report.pdf');
+    };
 
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
-    // Focus the input field on component mount
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, [messages]);
 
   useEffect(() => {
-    // Add the initial message to the chat
     setMessages([{ type: 'received', text: "👋 Hi, I'm Lucy. I'd like to help. Can you tell me your name?" }]);
   }, []);
 
@@ -130,7 +144,7 @@ const IncidentReport = () => {
       {!isChatEnded && (
         <form onSubmit={handleSubmit} className="mt-4 flex">
           <input
-            ref={inputRef} // Attach the ref to the input field
+            ref={inputRef}
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -142,11 +156,6 @@ const IncidentReport = () => {
             Send
           </button>
         </form>
-      )}
-      {isChatEnded && (
-        <button onClick={generatePDF} className="w-full mt-4 p-2 bg-green-500 text-white rounded">
-          Generate PDF Report
-        </button>
       )}
     </div>
   );
