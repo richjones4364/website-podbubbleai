@@ -24,6 +24,7 @@ const IncidentReport = () => {
   const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [conversationHistory, setConversationHistory] = useState<ConversationEntry[]>([]); // Store the full conversation
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,16 +51,12 @@ const IncidentReport = () => {
       const data = await response.json();
       const geminiText = data.response || 'No response text.';
       
+        if (data.conversationHistory) {
+          setConversationHistory(data.conversationHistory);
+        }
 
       setMessages((prevMessages) => [...prevMessages, { type: 'received', text: geminiText }]);
 
-      if (geminiText.toLowerCase().includes('inform them that you will contact miss smith with the details')) {
-        setIsChatEnded(true);
-          // Dynamically import jsPDF and generate PDF
-          import('jspdf').then(({ default: jsPDF }) => {
-              generatePDF(jsPDF, data.conversationHistory);
-          });
-      }
     } catch (error: unknown) { //Change any to unknown
         console.error('Chat error:', error);
         let errorMessage = 'An unknown error occurred';
@@ -128,6 +125,13 @@ const IncidentReport = () => {
     setMessages([{ type: 'received', text: "👋 Hi, I'm Lucy. I'd like to help. Can you tell me your name?" }]);
   }, []);
 
+    const handleEndChat = () => {
+        setIsChatEnded(true);
+        import('jspdf').then(({ default: jsPDF }) => {
+            generatePDF(jsPDF, conversationHistory);
+        });
+    }
+
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-lg font-bold text-center mb-4">Incident Report Chat</h2>
@@ -163,15 +167,17 @@ const IncidentReport = () => {
           </button>
         </form>
       )}
-      <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <Image
-            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1050&amp;q=80"
-            alt="Students in a classroom with technology"
-            width={1050}
-            height={1050}
-          />
-        </div>
+      {isChatEnded && (
+          <div></div>
+      )}
+        {!isChatEnded && (
+            <button
+                onClick={handleEndChat}
+                className="w-full mt-4 p-2 bg-green-500 text-white rounded"
+            >
+                End Chat
+            </button>
+        )}
     </div>
   );
 };

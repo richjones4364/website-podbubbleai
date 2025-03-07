@@ -1,7 +1,4 @@
-
-
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
 
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -38,7 +35,7 @@ Standard Operating Procedure:
 
 6. Confirm: is there aything else they need to tell you?
 
-7. Inform them that you will contact Miss Smith with the details, thank them, and end chat. Do not wait for the user to end the chat. 
+7. Thank them for telling you their story.
 `;
 
 // Chat state and history are maintained outside the handler function.
@@ -75,7 +72,7 @@ export default async function handler(req, res) {
         ],
         generationConfig,
       });
-      conversationHistory.push({ role: "user", text: systemInstruction }); // Add system instruction to history
+      //conversationHistory.push({ role: "user", text: systemInstruction }); // Add system instruction to history - REMOVED
     }
 
     const result = await chat.sendMessage(message);
@@ -86,6 +83,12 @@ export default async function handler(req, res) {
     conversationHistory.push({ role: "user", text: message });
     conversationHistory.push({ role: "model", text: aiResponse });
 
+    //If the conversation ends, reset chat
+    if (aiResponse.toLowerCase().includes('thank you for telling me your story')) {
+        console.log('Chat ended, resetting chat and history')
+        chat = null;
+        conversationHistory = [];
+    }
     res
       .status(200)
       .json({ response: aiResponse, conversationHistory }); // Send back the conversation history
