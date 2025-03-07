@@ -23,7 +23,6 @@ const IncidentReport = () => {
   const [isChatEnded, setIsChatEnded] = useState<boolean>(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  //const [conversationHistory, setConversationHistory] = useState<ConversationEntry[]>([]); // Store the full conversation, no longer needed here
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,15 +59,21 @@ const IncidentReport = () => {
               generatePDF(jsPDF, data.conversationHistory);
           });
       }
-    } catch (error) { //remove any
-      console.error('Chat error:', error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          type: 'received',
-          text: `Error processing message: ${error.message || 'Unknown error'}`,
-        },
-      ]);
+    } catch (error: unknown) { //Change any to unknown
+        console.error('Chat error:', error);
+        let errorMessage = 'An unknown error occurred';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        } else if (typeof error === 'string') {
+            errorMessage = error;
+        }
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+                type: 'received',
+                text: `Error processing message: ${errorMessage}`,
+            },
+        ]);
     } finally {
       setIsFetching(false);
       if (inputRef.current) {
