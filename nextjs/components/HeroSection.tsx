@@ -43,11 +43,12 @@ const HeroSection = () => {
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
         <Image
           className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-          src="/hero-homepage.jpg" // Changed to local image
+          src="/hero-homepage.jpg"
           alt="Students in a classroom with technology"
           fill={false}
           width={1050}
-          height={680} // added height
+          height={680}
+          priority // Added priority prop
         />
       </div>
     </div>
