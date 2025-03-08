@@ -20,7 +20,7 @@ const LeadCaptureSection = () => {
 
     try {
       const response = await fetch(
-        'https://n8n-production-d809.up.railway.app/webhook/7c0cf912-39eb-4ad5-8160-a9a13602a622',
+        'https://n8n-production-d809.up.railway.app/webhook/ad40a288-6303-4c1f-900a-4b6ca286e25c',
         {
           method: 'POST',
           headers: {
@@ -51,12 +51,12 @@ const LeadCaptureSection = () => {
               &apos;Work Smarter, Not Harder&apos;
             </h2>
             <p className="mt-4 text-xl text-gray-600">
-              Discover how PodBubble&apos;s AI can transform your school&apos;s administrative workflow.
+              Our report on how AI is being used to transform school staff workloads in the UK.
             </p>
             <div className="mt-6 grid space-y-4">
               <div className="flex items-center">
                 <CheckCircle className="h-6 w-6 text-orange-500 mr-3" />
-                <span>Reduce staff workload by up to 70%</span>
+                <span>Reduce staff administrative workload by up to 50%</span>
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-6 w-6 text-orange-500 mr-3" />
@@ -64,7 +64,7 @@ const LeadCaptureSection = () => {
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-6 w-6 text-orange-500 mr-3" />
-                <span>Focus more on student support</span>
+                <span>Focus more on student support and wellbeing</span>
               </div>
             </div>
           </div>
