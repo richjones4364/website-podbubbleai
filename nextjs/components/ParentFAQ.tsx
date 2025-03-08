@@ -12,7 +12,6 @@ const ParentFAQ = () => {
   const [isFetching, setIsFetching] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [tempSentMessage, setTempSentMessage] = useState<string | null>(null);
-  const N8N_URL = process.env.N8N_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +25,7 @@ const ParentFAQ = () => {
     setIsFetching(true);
 
     try {
-      const response = await fetch(N8N_URL, {
+      const response = await fetch(process.env.NEXT_PUBLIC_N8N_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
