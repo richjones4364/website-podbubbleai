@@ -51,7 +51,7 @@ const Footer = () => {
           </a>
         </div>
         <a href="/Privacy">
-        <p className="mt-8 text-center text-base text-gray-400">&copy; Privacy</p>
+        <p className="mt-8 text-center text-base text-gray-400">Privacy</p>
         </a>
         <p className="mt-8 text-center text-base text-gray-400">&copy; 2025 PodBubble. All rights reserved.</p>
       </div>
