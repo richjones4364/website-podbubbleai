@@ -89,7 +89,7 @@ const ParentFAQ = () => {
   }, [tempSentMessage]);
 
   return (
-    <div className="glass p-2">
+    <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto mt-4">
       <div className="flex flex-col h-50vh rounded-lg">
         <div className="flex-1 max-w-full pb-2 min-h-0 overflow-y-auto scroll-smooth min-h-[50vh] max-h-[50vh] space-y-0.5">
           {messages.map((msg, index) => (
