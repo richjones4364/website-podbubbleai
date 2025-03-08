@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link'; // Correct import
 
 const HeroSection = () => {
   return (
@@ -28,12 +29,12 @@ const HeroSection = () => {
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="mt-3 sm:mt-0 sm:ml-3">
-                  <a
+                  <Link
                     href="/DemoPage"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-orange-600 bg-orange-100 hover:bg-orange-200 md:py-4 md:text-lg md:px-10"
                   >
                     Try an agent <ChevronRight className="ml-2 h-5 w-5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
