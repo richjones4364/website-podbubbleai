@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 //   // Add other properties as needed based on the actual response structure
 // }
 
-const PoliciesProcedures = () => {
+const ParentFAQ = () => {
   const [messages, setMessages] = useState<{ type: string; text: string }[]>([]);
   const [message, setMessage] = useState('');
   // const [n8nResponse, setN8nResponse] = useState<N8nResponse | null>(null);
@@ -143,4 +143,4 @@ const PoliciesProcedures = () => {
   );
 };
 
-export default PoliciesProcedures;
+export default ParentFAQ;
