@@ -1,5 +1,3 @@
-import IncidentReport from "../components/IncidentReport";
-import LeadCaptureSection from "../components/LeadCaptureSection";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
