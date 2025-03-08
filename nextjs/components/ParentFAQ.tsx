@@ -12,6 +12,7 @@ const ParentFAQ = () => {
   const [isFetching, setIsFetching] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [tempSentMessage, setTempSentMessage] = useState<string | null>(null);
+  const N8N_URL = process.env.N8N_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const ParentFAQ = () => {
     setIsFetching(true);
 
     try {
-      const response = await fetch('https://n8n-production-d809.up.railway.app/webhook/b9de4bc3-f3ec-4bd2-a335-5c1e45c01a38', {
+      const response = await fetch(N8N_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
