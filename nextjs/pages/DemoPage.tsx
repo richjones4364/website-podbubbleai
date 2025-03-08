@@ -8,7 +8,7 @@ const DemoPage = () => {
         <div>
             <Navbar />
             <div className="bg-orange-200 py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-2">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
                     <div className="bg-orange-100 rounded-lg shadow-lg p-8">
                         <div className="text-center space-y-4"> {/* Add space to parent */}
                             <h3 className="text-3xl font-bold text-gray-900">Meet Lucy, the Pastoral Team Assistant</h3> {/* Style h3 */}
