@@ -7,7 +7,7 @@ const DemoPage = () => {
     return (
         <div>
             <Navbar />
-            <div className="bg-orange-200 py-12">
+            <div className="bg-grey-50 py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
                     <div className="bg-orange-100 rounded-lg shadow-lg p-8">
                         <div className="text-center space-y-4"> {/* Add space to parent */}
