@@ -30,10 +30,10 @@ const FeatureSection = () => {
         <div className="lg:text-center">
           <h2 className="text-base text-orange-500 font-semibold tracking-wide uppercase">Features</h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            A better way to manage your school
+            We're here to reduce staff workload.
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            PodBubble&apos;s AI agents work tirelessly to reduce administrative burden, allowing your school to operate more efficiently.
+            PodBubble&apos;s AI agents work tirelessly to reduce administrative burden, giving your staff more energy to focus on the children.
           </p>
         </div>
         
