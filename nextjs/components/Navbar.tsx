@@ -23,7 +23,7 @@ const Navbar = () => {
                 Testimonials
               </Link> */}
               <Link href="/DemoPage" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                Demo
+                Meet Our Agents
               </Link>
               {/* <a href="#contact" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Contact
