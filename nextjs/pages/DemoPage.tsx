@@ -1,5 +1,6 @@
 import IncidentReport from "../components/IncidentReport";
 import LeadCaptureSection from "../components/LeadCaptureSection";
+import ParentFAQ from "../components/ParentFAQ";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -20,8 +21,15 @@ const DemoPage = () => {
                                 <p>Explain what has happened to you and how it made you feel.</p>
                                 <p>The PDF download at the end shows how the incident report can be sent to the pastoral team for triage.</p>
                             </div>
-
                         </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 rounded-lg shadow-lg p-8 mt-4">
+                    <div className="text-center space-y-4">
+                    <h3 className="text-3xl font-bold text-gray-900">Meet Rob, the Reception Assistant</h3> {/* Style h3 */}
+                    <h4 className="text-xl font-medium text-gray-700">Help your Office Team field parent questions more efficiently.</h4> {/* Style h4 */}
+                    </div>
+                    <ParentFAQ />
                     </div>
                 </div>
                 <LeadCaptureSection />
