@@ -25,7 +25,7 @@ const ParentFAQ = () => {
     setIsFetching(true);
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_N8N_URL, {
+      const response = await fetch('/api/getWebhookParentFAQ', { // Changed this line
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
