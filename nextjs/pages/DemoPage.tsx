@@ -26,8 +26,8 @@ const DemoPage = () => {
                     
                     <div className="bg-blue-50 rounded-lg shadow-lg p-8 mt-4">
                     <div className="text-center space-y-4">
-                    <h3 className="text-3xl font-bold text-gray-900">Meet Rob, the Reception Assistant</h3> {/* Style h3 */}
-                    <h4 className="text-xl font-medium text-gray-700">Help your Office Team field parent questions more efficiently.</h4> {/* Style h4 */}
+                    <h3 className="text-3xl font-bold text-gray-900">Meet Rob, the Reception Office Assistant</h3> {/* Style h3 */}
+                    <h4 className="text-xl font-medium text-gray-700">Help your Office Team answer parent questions.</h4> {/* Style h4 */}
                     </div>
                     <ParentFAQ />
                     </div>
