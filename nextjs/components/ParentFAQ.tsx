@@ -1,12 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+// Define the Message type - now just for UI display
+export interface Message {
+  type: 'sent' | 'received';
+  text: string;
+}
+
 const ParentFAQ = () => {
-  const [messages, setMessages] = useState<{ type: string; text: string }[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    { type: 'received', text: "Hi, I'm Rob, the Reception Assistant. How can I help you today?" },
+  ]);
   const [message, setMessage] = useState('');
   const [isFetching, setIsFetching] = useState(false);
-  const chatContainerRef = useRef<HTMLDivElement>(null); // Rename ref
-  const inputRef = useRef<HTMLInputElement>(null); // Add inputRef
-  
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const currentMessage = message;
@@ -67,15 +75,20 @@ const ParentFAQ = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
-    if (inputRef.current) { // Add focus to input here.
+    if (inputRef.current) {
       inputRef.current.focus();
     }
   }, [messages]);
-  
+
+    // Add useEffect to display initial message
+    useEffect(() => {
+        setMessages([{ type: 'received', text: "🙋‍♂️ Hi, I'm Rob, the Reception Assistant. How can I help you today?" }]);
+    }, []);
+
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto mt-4">
-      <div className="flex flex-col h-50vh rounded-lg">
-        <div ref={chatContainerRef} className="flex-1 max-w-full pb-2 min-h-0 overflow-y-auto scroll-smooth min-h-[50vh] max-h-[50vh] space-y-0.5">
+      <div className="flex flex-col rounded-lg">
+        <div ref={chatContainerRef} className="flex-1 max-w-full pb-2 min-h-0 overflow-y-auto scroll-smooth max-h-[50vh] space-y-0.5">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -104,7 +117,7 @@ const ParentFAQ = () => {
         <form onSubmit={handleSubmit} className="relative">
           <div className="input-area flex items-center">
             <input
-              ref={inputRef} // Add inputRef to input
+              ref={inputRef}
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
