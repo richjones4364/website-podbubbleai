@@ -1,27 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// interface N8nResponse {
-//   output?: string;
-//   // Add other properties as needed based on the actual response structure
-// }
-
 const ParentFAQ = () => {
   const [messages, setMessages] = useState<{ type: string; text: string }[]>([]);
   const [message, setMessage] = useState('');
-  // const [n8nResponse, setN8nResponse] = useState<N8nResponse | null>(null);
   const [isFetching, setIsFetching] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [tempSentMessage, setTempSentMessage] = useState<string | null>(null);
-
+  const chatContainerRef = useRef<HTMLDivElement>(null); // Rename ref
+  const inputRef = useRef<HTMLInputElement>(null); // Add inputRef
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const currentMessage = message;
+    if (!currentMessage.trim()) return; // Prevent sending empty messages
     setMessage('');
 
-    setTempSentMessage(currentMessage);
-
     setMessages((prevMessages) => [...prevMessages, { type: 'sent', text: currentMessage }]);
-
     setIsFetching(true);
 
     try {
@@ -41,8 +33,6 @@ const ParentFAQ = () => {
 
       const data = await response.json();
       console.log('Success:', data);
-
-      // setN8nResponse(data); // Remove this line
 
       if (Array.isArray(data) && data.length > 0 && data[0].output) {
         setMessages((prevMessages) => [...prevMessages, { type: 'received', text: data[0].output }]);
@@ -67,51 +57,39 @@ const ParentFAQ = () => {
       } else {
         console.error('Unknown error:', error);
       }
-      // setN8nResponse(null); // Remove this line
       setMessages((prevMessages) => [...prevMessages, { type: 'received', text: responseMessage }]);
     } finally {
       setIsFetching(false);
-      // Removed setTempSentMessage(null) from here
     }
   };
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+    if (inputRef.current) { // Add focus to input here.
+      inputRef.current.focus();
     }
   }, [messages]);
-
-  useEffect(() => {
-    if (tempSentMessage) {
-      setTempSentMessage(null);
-    }
-  }, [tempSentMessage]);
-
+  
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto mt-4">
       <div className="flex flex-col h-50vh rounded-lg">
-        <div className="flex-1 max-w-full pb-2 min-h-0 overflow-y-auto scroll-smooth min-h-[50vh] max-h-[50vh] space-y-0.5">
+        <div ref={chatContainerRef} className="flex-1 max-w-full pb-2 min-h-0 overflow-y-auto scroll-smooth min-h-[50vh] max-h-[50vh] space-y-0.5">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${msg.type} flex ${msg.type === 'sent' ? 'justify-start' : 'justify-end'}`}
+              className={`message ${msg.type} flex ${msg.type === 'sent' ? 'justify-end' : 'justify-start'}`}
             >
               <div
                 className={`p-2 rounded ${
-                  msg.type === 'sent' ? 'bg-gray-300 text-black' : 'bg-gray-500 text-white'
+                  msg.type === 'sent' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'
                 } max-w-[90%] break-words m-1 rounded-lg`}
               >
                 {msg.text}
               </div>
             </div>
           ))}
-          {tempSentMessage && (
-            <div className={`message sent flex justify-start`}>
-              <div className={`p-2 rounded bg-gray-300 text-black max-w-[70%] break-words`}>
-                {tempSentMessage}
-              </div>
-            </div>
-          )}
           {isFetching && (
             <div className="flex justify-center my-2">
               <div className="dot-container flex space-x-1">
@@ -121,12 +99,12 @@ const ParentFAQ = () => {
               </div>
             </div>
           )}
-          <div ref={messagesEndRef} />
         </div>
 
         <form onSubmit={handleSubmit} className="relative">
           <div className="input-area flex items-center">
             <input
+              ref={inputRef} // Add inputRef to input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
