@@ -3,7 +3,7 @@ import { Clock, MessageSquare, Users, Sparkles } from 'lucide-react';
 const features = [
   {
     name: 'Save Time',
-    description: 'Reduce administrative workload by up to 70% with our AI agents handling routine tasks like student incident reporting, answering parent FAQs, and generating reports.',
+    description: 'Reduce administrative workload by up to 50% with our AI agents handling routine tasks like student incident reporting, answering parent FAQs, and generating reports.',
     icon: Clock,
   },
   {
@@ -18,7 +18,7 @@ const features = [
   },
   {
     name: 'Smart Automation',
-    description: "Our AI are tuned to your school&apos;s specific needs and adapted over time, becoming more efficient and personalised to your requirements.",
+    description: "Our AI are tuned to your school's specific needs and adapted over time, becoming more efficient and personalised to your requirements.",
     icon: Sparkles,
   },
 ];
