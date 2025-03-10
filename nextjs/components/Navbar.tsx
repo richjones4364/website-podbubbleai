@@ -22,9 +22,9 @@ const Navbar = () => {
               {/* <a href="#testimonials" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Testimonials
               </Link> */}
-              <Link href="/DemoPage" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+              {/* <Link href="/DemoPage" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Meet Agents
-              </Link>
+              </Link> */}
               {/* <a href="#contact" className="border-transparent text-gray-700 hover:text-orange-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                 Contact
               </Link> */}
