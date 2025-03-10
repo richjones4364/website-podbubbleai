@@ -112,9 +112,9 @@ const IncidentReport = () => {
         chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
     // Focus the input field
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    // if (inputRef.current) {
+    //   inputRef.current.focus();
+    // }
   }, [messages]);
 
   useEffect(() => {
@@ -132,9 +132,9 @@ const IncidentReport = () => {
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-md max-w-lg mx-auto">
-      <h2 className="text-lg font-bold text-center mb-4">
+      <h3 className="text-lg font-bold text-center mb-4">
         Incident Report Chat
-      </h2>
+      </h3>
       <div ref={chatContainerRef} className="max-h-[30vh] overflow-y-auto border p-2 rounded">
         {messages.map((msg, index) => (
           <div

@@ -29,7 +29,7 @@ function HomePage() {
       </div>
       
       <div className="bg-blue-50 py-8 text-center py-8">
-      <h3 className="text-3xl font-bold text-gray-900 mb-4">MeetRob, the Reception Team Assistant</h3> {/* Style h3 */}
+      <h3 className="text-3xl font-bold text-gray-900 mb-4">Meet Rob, the Reception Team Assistant</h3> {/* Style h3 */}
       <h4 className="text-xl font-medium text-gray-700 mb-4">Answer Parent FAQs more efficiently.</h4> {/* Style h4 */}
       <ParentFAQ />
       </div>
