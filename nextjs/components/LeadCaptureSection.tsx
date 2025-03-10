@@ -85,7 +85,7 @@ const LeadCaptureSection = () => {
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-medium text-center text-gray-900">Get your free guide</h3>
+                  <h3 className="text-xl font-medium text-center text-gray-900">Get your free report</h3>
                   <p className="mt-2 text-center text-gray-600">
                     Enter your email below to receive &apos;Work Smarter, Not Harder&apos;.
                   </p>

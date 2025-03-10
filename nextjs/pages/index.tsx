@@ -16,8 +16,11 @@ function HomePage() {
       <Navbar />
       <HeroSection />
       <FeatureSection />
+      <div id="lucy-section" className="bg-orange-50">
+        <p className="pt-4 text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Meet The Agents!</p>
+      </div>
       <div className="bg-orange-50 py-16 text-center py-8">
-      <h3 className="text-3xl font-bold text-gray-900 mb-4">Meet Lucy, the Pastoral Team Assistant</h3> {/* Style h3 */}
+      <h3 className="text-3xl font-bold text-gray-900 mb-4">Lucy, the Pastoral Team Assistant</h3> {/* Style h3 */}
       <h4 className="text-xl font-medium text-gray-700 mb-4">Help your Pastoral Team respond to students in need of support.</h4> {/* Style h4 */}
       <IncidentReport />
       <h6 className="font-bold text-gray-800 mt-4">Instructions:</h6> {/* Style h6 */}
@@ -29,7 +32,7 @@ function HomePage() {
       </div>
       
       <div className="bg-blue-50 py-8 text-center py-8">
-      <h3 className="text-3xl font-bold text-gray-900 mb-4">Meet Rob, the Reception Team Assistant</h3> {/* Style h3 */}
+      <h3 className="text-3xl font-bold text-gray-900 mb-4">Rob, the Reception Team Assistant</h3> {/* Style h3 */}
       <h4 className="text-xl font-medium text-gray-700 mb-4">Answer Parent FAQs more efficiently.</h4> {/* Style h4 */}
       <ParentFAQ />
       </div>
