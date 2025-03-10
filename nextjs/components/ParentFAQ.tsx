@@ -71,14 +71,7 @@ const ParentFAQ = () => {
     }
   };
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [messages]);
+  
 
     // Add useEffect to display initial message
     useEffect(() => {
