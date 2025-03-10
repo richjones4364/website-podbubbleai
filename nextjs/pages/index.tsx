@@ -17,7 +17,7 @@ function HomePage() {
       <HeroSection />
       <FeatureSection />
       <div id="lucy-section" className="bg-orange-50">
-        <p className="pt-4 text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-5xl">Meet The Agents!</p>
+        <p className="pt-4 text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Meet The Agents!</p>
       </div>
       <div className="bg-orange-50 py-16 text-center py-8">
       <h3 className="text-3xl font-bold text-gray-900 mb-4">Lucy, the Pastoral Team Assistant</h3> {/* Style h3 */}

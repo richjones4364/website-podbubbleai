@@ -2,13 +2,13 @@ import { Clock, MessageSquare, Users, Sparkles } from 'lucide-react';
 
 const features = [
   {
-    name: 'Save Time',
-    description: 'Reduce administrative workload by up to 50% with our AI agents handling routine tasks like student incident reporting, answering parent FAQs, and generating reports.',
+    name: 'Automate routine tasks',
+    description: 'Reduce administrative workload by up to 50% with our AI agents handling routine tasks like data entry and generating reports.',
     icon: Clock,
   },
   {
-    name: 'Improve Communication',
-    description: 'Automate responses to common queries from parents and staff, ensuring timely and consistent communication across your school.',
+    name: 'Improve Communication with students, parents, and staff',
+    description: 'Provide instant responses to common queries from parents, students, and staff, ensuring timely and consistent communication across your school.',
     icon: MessageSquare,
   },
   {
@@ -17,8 +17,8 @@ const features = [
     icon: Users,
   },
   {
-    name: 'Smart Automation',
-    description: "Our AI are tuned to your school's specific needs and adapted over time, becoming more efficient and personalised to your requirements.",
+    name: 'Reduce administrative errors',
+    description: "Our AI are trained on your school's policies, and become more efficient over time.",
     icon: Sparkles,
   },
 ];
@@ -33,7 +33,7 @@ const FeatureSection = () => {
             We&apos;re here to reduce staff workload.
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            PodBubble&apos;s AI agents work tirelessly to reduce administrative burden, giving your staff more energy to focus on the children.
+            PodBubble&apos;s customisable AI Agents work 24/7 in reducing school staff workloads, giving you more time and energy to focus on the children.
           </p>
         </div>
 
