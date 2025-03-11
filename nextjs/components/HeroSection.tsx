@@ -30,10 +30,10 @@ const HeroSection = () => {
                 <span className="block text-orange-500 xl:inline">Staff Workload In Schools</span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                PodBubble helps schools save time and reduce workload by automating routine tasks with AI.
+                We train AI Agents that save your staff hours of time each week.
               </p>
               <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                Our intelligent agents handle administrative work so your staff can focus on what matters most - teaching and supporting students.
+                Our bespoke AI Agents are trained on your school&apos;s policies and procedures to multiply your staff&apos;s capacity.
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="mt-3 sm:mt-0 sm:ml-3">
