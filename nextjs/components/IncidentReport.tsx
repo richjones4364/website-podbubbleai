@@ -135,7 +135,7 @@ const IncidentReport = () => {
       <h3 className="text-lg font-bold text-center mb-4">
         Incident Report Chat
       </h3>
-      <div ref={chatContainerRef} className="max-h-[30vh] overflow-y-auto border p-2 rounded">
+      <div ref={chatContainerRef} className="max-h-[35vh] overflow-y-auto border p-2 rounded h-[35vh]">
         {messages.map((msg, index) => (
           <div
             key={index}
