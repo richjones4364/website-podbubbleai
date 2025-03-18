@@ -104,7 +104,7 @@ const IncidentReport = () => {
       }
     });
 
-    doc.save('incident_report.pdf');
+    // doc.save('incident_report.pdf'); // commented out to prevent download trigger and potential GDPR issues on website
   };
 
   useEffect(() => {
