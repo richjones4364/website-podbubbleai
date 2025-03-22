@@ -1,4 +1,4 @@
-import { Clock, MessageSquare, Users, Sparkles } from 'lucide-react';
+import { Clock, MessageSquare, Sparkles } from 'lucide-react';
 
 const features = [
   {
