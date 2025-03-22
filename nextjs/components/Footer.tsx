@@ -14,10 +14,14 @@ const Footer = () => {
             </svg>
           </a>
         </div>
-        {/* Use Link and move the styling to the Link component */}
         <div className="mt-8 text-center">
           <Link href="/Privacy" className="text-base text-gray-400">
             Privacy
+          </Link>
+          </div>
+          <div className="mt-8 text-center">
+          <Link href="/policies/Policy for PodBubble AI Use In Education Settings.pdf" className="text-base text-gray-400">
+            Product Policy
           </Link>
         </div>
         <p className="mt-8 text-center text-base text-gray-400">&copy; 2025 PodBubble. All rights reserved.</p>
