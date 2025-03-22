@@ -8,6 +8,7 @@ import LeadCaptureSection from '../components/LeadCaptureSection';
 // import TestimonialSection from './components/TestimonialSection';
 import CTASection from '../components/CTASection';
 import IncidentReport from '../components/IncidentReport';
+import ComplianceSection from '../components/ComplianceSection';
 import ParentFAQ from '../components/ParentFAQ';
 
 function HomePage() {
@@ -41,6 +42,7 @@ function HomePage() {
       </div>
       <LeadCaptureSection />
       {/* <TestimonialSection /> */}
+      <ComplianceSection />
       <CTASection />
       <Footer />
     </div>
