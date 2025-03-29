@@ -2,10 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User, Image as ImageIcon, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Button } from '../components/ui/button';
+import { Textarea } from '../components/ui/textarea';
+import { Card } from '../components/ui/card';
+import { ScrollArea } from '../components/ui/scroll-area';
 
 interface Message {
   role: 'assistant' | 'user';
