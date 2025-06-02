@@ -1,0 +1,11 @@
+[build]
+  command = "cd nextjs && npm run build"
+  
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Catch-all redirect for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 

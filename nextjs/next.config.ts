@@ -8,8 +8,12 @@ const nextConfig = {
           hostname: 'images.unsplash.com',
         },
       ],
+      unoptimized: true,
     },
+    output: 'export',
+    trailingSlash: true,
+    distDir: 'out',
   };
   
-  module.exports = nextConfig;
+  export default nextConfig;
   
