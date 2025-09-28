@@ -1,9 +1,6 @@
 [build]
-  command = "cd nextjs && npm install && npm run build"
-  publish = "nextjs/out"
-  
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+  command = "npm install && npm run build"
+  publish = "out"
 
 # Catch-all redirect for client-side routing
 [[redirects]]
