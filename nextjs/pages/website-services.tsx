@@ -301,15 +301,15 @@ Best regards,
             {/* Starter Package */}
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <h3 className="text-2xl font-bold text-gray-900">Starter Package</h3>
-              <p className="mt-2 text-gray-600">Perfect for new businesses</p>
+              <p className="mt-2 text-gray-600">Suitable for small startups and landing pages</p>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-gray-900">£995</span>
+                <span className="text-4xl font-bold text-gray-900">£595</span>
                 <span className="text-gray-600">/project</span>
               </div>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  Up to 5 pages
+                  1 web page
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
@@ -342,13 +342,13 @@ Best regards,
               <h3 className="text-2xl font-bold text-gray-900">Professional Package</h3>
               <p className="mt-2 text-gray-600">Perfect for established businesses</p>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-gray-900">£1,995</span>
+                <span className="text-4xl font-bold text-gray-900">£995</span>
                 <span className="text-gray-600">/project</span>
               </div>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  Up to 10 pages
+                  Up to 5 pages
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
