@@ -135,6 +135,13 @@ Best regards,
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
+            <div className="mb-8">
+              <img 
+                src="/logo-website-services.png" 
+                alt="PodBubble Website Services Logo"
+                className="h-10 w-auto mx-auto sm:h-12 lg:h-16 border-2 border-yellow-500"
+              />
+            </div>
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Our WordPress Website Services
             </h2>
