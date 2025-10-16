@@ -4,6 +4,7 @@ import { CheckCircle, Star, ArrowRight, Globe, Smartphone, Palette, Zap, Shield,
 import Footer from '../components/Footer';
 import HostingServicesCarousel from '../components/HostingServicesCarousel';
 import PricingFeaturesTable from '../components/PricingFeaturesTable';
+import ServicesNavbar from '../components/ServicesNavbar';
 
 const WebsiteServicesPage = () => {
   const handleEmailClick = () => {
@@ -45,8 +46,11 @@ Best regards,
         <meta property="og:type" content="website" />
       </Head>
       <div className="min-h-screen bg-white">
+        {/* Services Navbar */}
+        <ServicesNavbar />
+        
         {/* Hero Section */}
-        <div className="relative bg-gradient-to-br from-orange-50 to-orange-100 overflow-hidden">
+        <div id="home" className="relative bg-gradient-to-br from-orange-50 to-orange-100 overflow-hidden pt-16">
           <div className="max-w-7xl mx-auto">
             {/* Mobile: Image first, then text */}
             <div className="lg:hidden">
@@ -232,10 +236,14 @@ Best regards,
       </div>
 
       {/* Pricing Features Table Section */}
-      <PricingFeaturesTable />
-
+      <div id="build">
+        <PricingFeaturesTable />
+      </div>
+      
       {/* Hosting Services Carousel Section */}
-      <HostingServicesCarousel />
+      <div id="host">
+        <HostingServicesCarousel />
+      </div>
 
       {/* Why Choose Us Section */}
       <div className="py-16 bg-gray-50">
@@ -294,7 +302,7 @@ Best regards,
       </div>
 
       {/* Pricing Section */}
-      <div className="py-16 bg-white">
+      <div id="host" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
