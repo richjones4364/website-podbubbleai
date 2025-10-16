@@ -2,6 +2,9 @@ import React from 'react';
 import Head from 'next/head';
 import { CheckCircle, Star, ArrowRight, Globe, Smartphone, Palette, Zap, Shield, Clock, Users } from 'lucide-react';
 import Footer from '../components/Footer';
+import HostingServicesCarousel from '../components/HostingServicesCarousel';
+import PricingFeaturesTable from '../components/PricingFeaturesTable';
+import ServicesNavbar from '../components/ServicesNavbar';
 
 const WebsiteServicesPage = () => {
   const handleEmailClick = () => {
@@ -43,8 +46,11 @@ Best regards,
         <meta property="og:type" content="website" />
       </Head>
       <div className="min-h-screen bg-white">
+        {/* Services Navbar */}
+        <ServicesNavbar />
+        
         {/* Hero Section */}
-        <div className="relative bg-gradient-to-br from-orange-50 to-orange-100 overflow-hidden">
+        <div id="home" className="relative bg-gradient-to-br from-orange-50 to-orange-100 overflow-hidden pt-16">
           <div className="max-w-7xl mx-auto">
             {/* Mobile: Image first, then text */}
             <div className="lg:hidden">
@@ -99,7 +105,7 @@ Best regards,
                       Get your business online with a stunning WordPress website and SEO package. No ongoing developer costs - you'll be able to edit your site yourself.
                     </p>
                     <p className="mt-3 text-base text-gray-600 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                      All packages include first year hosting (£150 value) and training to manage your site independently.
+                      All packages include training to manage your site independently.
                     </p>
                     <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                       <div className="mt-3 sm:mt-0 sm:ml-3">
@@ -208,7 +214,7 @@ Best regards,
               </div>
               <h3 className="mt-4 text-xl font-semibold text-gray-900">Website Hosting</h3>
               <p className="mt-2 text-gray-600">
-                Reliable hosting at just £150 per year. First year included with all packages.
+                Fast, reliable hosting with the option to include monthly content updates.
               </p>
               <ul className="mt-4 space-y-2">
                 <li className="flex items-center text-sm text-gray-600">
@@ -221,12 +227,22 @@ Best regards,
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  First year free
+                  Monthly content updates available
                 </li>
               </ul>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Pricing Features Table Section */}
+      <div id="build">
+        <PricingFeaturesTable />
+      </div>
+      
+      {/* Hosting Services Carousel Section */}
+      <div id="host">
+        <HostingServicesCarousel />
       </div>
 
       {/* Why Choose Us Section */}
@@ -286,14 +302,14 @@ Best regards,
       </div>
 
       {/* Pricing Section */}
-      <div className="py-16 bg-white">
+      <div id="host" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
               WordPress Website Packages
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              All packages include WordPress website, SEO optimization, and first year hosting (£150 value)
+              All packages include WordPress website, SEO optimization, Mailerlite integration, and training. 
             </p>
           </div>
 
@@ -321,7 +337,7 @@ Best regards,
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  First year hosting
+                  MailerLite integration
                 </li>
               </ul>
               <button 
@@ -364,7 +380,7 @@ Best regards,
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  First year hosting
+                  MailerLite integration
                 </li>
               </ul>
               <button 
@@ -402,7 +418,7 @@ Best regards,
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  First year hosting
+                  MailerLite integration
                 </li>
               </ul>
               <button 
