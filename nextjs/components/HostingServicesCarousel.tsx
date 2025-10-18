@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 const HostingServicesCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const slides = [
     {
@@ -35,18 +36,32 @@ const HostingServicesCarousel = () => {
     setCurrentSlide(index);
   };
 
-  // Auto-advance slides every 5 seconds
+  // Detect mobile devices
   useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
-    return () => clearInterval(timer);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Auto-advance slides every 5 seconds (disabled on mobile)
+  useEffect(() => {
+    if (!isMobile) {
+      const timer = setInterval(nextSlide, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [isMobile]);
 
   return (
     <div className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Our WordPress Builds
+            Our Wordpress Hosting
           </h2>
           <p className="mt-4 text-lg text-gray-600">
             Discover our comprehensive hosting solutions designed for your business needs
