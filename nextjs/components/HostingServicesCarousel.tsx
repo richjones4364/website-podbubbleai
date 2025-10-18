@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 const HostingServicesCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const slides = [
     {
@@ -35,11 +36,25 @@ const HostingServicesCarousel = () => {
     setCurrentSlide(index);
   };
 
-  // Auto-advance slides every 5 seconds
+  // Detect mobile devices
   useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
-    return () => clearInterval(timer);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Auto-advance slides every 5 seconds (disabled on mobile)
+  useEffect(() => {
+    if (!isMobile) {
+      const timer = setInterval(nextSlide, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [isMobile]);
 
   return (
     <div className="py-16 bg-gray-50">
