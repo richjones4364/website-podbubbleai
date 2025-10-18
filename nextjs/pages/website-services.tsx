@@ -302,14 +302,14 @@ Best regards,
       </div>
 
       {/* Pricing Section */}
-      <div id="host" className="py-16 bg-white">
+      <div id="packages" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
               WordPress Website Packages
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              All packages include WordPress website, SEO optimization, Mailerlite integration, and training. 
+              All packages include WordPress website, SEO optimization, Mailerlite integration, training, and the first year of web hosting on the Nano Hosting*. 
             </p>
           </div>
 
@@ -317,15 +317,18 @@ Best regards,
             {/* Starter Package */}
             <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
               <h3 className="text-2xl font-bold text-gray-900">Starter Package</h3>
-              <p className="mt-2 text-gray-600">Suitable for small startups and landing pages</p>
+              <p className="mt-2 text-gray-600">Perfect for small businesses and landing pages</p>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-gray-900">£595</span>
-                <span className="text-gray-600">/project</span>
+                <span className="text-4xl font-bold text-gray-900">£895</span>
               </div>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                   1 web page
+                </li>
+                <li className="flex items-center text-sm text-gray-600">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  One Year Nano Web Hosting
                 </li>
                 <li className="flex items-center text-sm text-gray-600">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
@@ -358,8 +361,7 @@ Best regards,
               <h3 className="text-2xl font-bold text-gray-900">Professional Package</h3>
               <p className="mt-2 text-gray-600">Perfect for established businesses</p>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-gray-900">£995</span>
-                <span className="text-gray-600">/project</span>
+                <span className="text-4xl font-bold text-gray-900">£1,195</span>
               </div>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
@@ -396,8 +398,7 @@ Best regards,
               <h3 className="text-2xl font-bold text-gray-900">Premium Package</h3>
               <p className="mt-2 text-gray-600">For businesses with complex needs</p>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-gray-900">£2,995</span>
-                <span className="text-gray-600">/project</span>
+                <span className="text-4xl font-bold text-gray-900">£3,495</span>
               </div>
               <ul className="mt-6 space-y-3">
                 <li className="flex items-center text-sm text-gray-600">
@@ -428,6 +429,13 @@ Best regards,
                 Get Started
               </button>
             </div>
+          </div>
+          
+          {/* Hosting Note */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">
+              * After the first year, hosting will be charged at the regular monthly/annual rate.
+            </p>
           </div>
         </div>
       </div>
