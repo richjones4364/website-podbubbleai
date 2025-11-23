@@ -114,6 +114,12 @@ Best regards,
               >
                 Podcast Production
               </Link>
+              <Link
+                href="/about"
+                className="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium transition-colors duration-200"
+              >
+                About
+              </Link>
               <button
                 onClick={handleEmailClick}
                 className="bg-orange-500 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-orange-600 transition-colors duration-200 flex items-center"
@@ -178,6 +184,13 @@ Best regards,
               onClick={() => document.getElementById('mobile-menu')?.classList.add('hidden')}
             >
               Podcast Production
+            </Link>
+            <Link
+              href="/about"
+              className="text-gray-700 hover:text-orange-500 block px-3 py-2 text-base font-medium w-full text-left"
+              onClick={() => document.getElementById('mobile-menu')?.classList.add('hidden')}
+            >
+              About
             </Link>
             <button
               onClick={() => {
