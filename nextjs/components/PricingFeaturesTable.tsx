@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckCircle, X, Star } from 'lucide-react';
 
 const PricingFeaturesTable = () => {
+  
   const tiers = [
     {
       name: "Starter",

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ArrowRight } from 'lucide-react';
 
 const ServicesNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,10 +16,29 @@ const ServicesNavbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  useEffect(() => {
+    // Handle scrolling to section after navigation
+    if (router.asPath.includes('#')) {
+      const hash = router.asPath.split('#')[1];
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [router.asPath]);
+
+  const handleSectionClick = (sectionId: string) => {
+    if (router.pathname === '/') {
+      // Already on homepage, just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Navigate to homepage with hash
+      router.push(`/#${sectionId}`);
     }
   };
 
@@ -56,39 +78,47 @@ Best regards,
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img 
-              src="/logo-website-services.png" 
-              alt="PodBubble Website Services Logo"
-              className="h-8 w-auto sm:h-10"
-            />
+            <Link href="/">
+              <img 
+                src="/logo-website-services.png" 
+                alt="PodBubble Website Services Logo"
+                className="h-8 w-auto sm:h-10 cursor-pointer"
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <button
-                onClick={() => scrollToSection('home')}
+                onClick={() => handleSectionClick('home')}
                 className="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Home
               </button>
               <button
-                onClick={() => scrollToSection('build')}
+                onClick={() => handleSectionClick('build')}
                 className="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Build
               </button>
               <button
-                onClick={() => scrollToSection('host')}
+                onClick={() => handleSectionClick('host')}
                 className="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium transition-colors duration-200"
               >
                 Host
               </button>
+              <Link
+                href="/podcast-production"
+                className="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium transition-colors duration-200"
+              >
+                Podcast Production
+              </Link>
               <button
                 onClick={handleEmailClick}
                 className="bg-orange-500 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-orange-600 transition-colors duration-200 flex items-center"
               >
-                Free Quote
+                Contact
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
             </div>
@@ -117,7 +147,7 @@ Best regards,
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
             <button
               onClick={() => {
-                scrollToSection('home');
+                handleSectionClick('home');
                 document.getElementById('mobile-menu')?.classList.add('hidden');
               }}
               className="text-gray-700 hover:text-orange-500 block px-3 py-2 text-base font-medium w-full text-left"
@@ -126,7 +156,7 @@ Best regards,
             </button>
             <button
               onClick={() => {
-                scrollToSection('build');
+                handleSectionClick('build');
                 document.getElementById('mobile-menu')?.classList.add('hidden');
               }}
               className="text-gray-700 hover:text-orange-500 block px-3 py-2 text-base font-medium w-full text-left"
@@ -135,13 +165,20 @@ Best regards,
             </button>
             <button
               onClick={() => {
-                scrollToSection('host');
+                handleSectionClick('host');
                 document.getElementById('mobile-menu')?.classList.add('hidden');
               }}
               className="text-gray-700 hover:text-orange-500 block px-3 py-2 text-base font-medium w-full text-left"
             >
               Host
             </button>
+            <Link
+              href="/podcast-production"
+              className="text-gray-700 hover:text-orange-500 block px-3 py-2 text-base font-medium w-full text-left"
+              onClick={() => document.getElementById('mobile-menu')?.classList.add('hidden')}
+            >
+              Podcast Production
+            </Link>
             <button
               onClick={() => {
                 handleEmailClick();
@@ -149,7 +186,7 @@ Best regards,
               }}
               className="bg-orange-500 text-white px-6 py-2 rounded-md text-base font-medium hover:bg-orange-600 transition-colors duration-200 flex items-center justify-center w-full mt-4"
             >
-              Free Quote
+              Contact
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
           </div>
