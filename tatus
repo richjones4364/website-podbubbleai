@@ -1,0 +1,160 @@
+[1mdiff --git a/nextjs/components/Footer.tsx b/nextjs/components/Footer.tsx[m
+[1mindex 034bae1..f6c52c4 100644[m
+[1m--- a/nextjs/components/Footer.tsx[m
+[1m+++ b/nextjs/components/Footer.tsx[m
+[36m@@ -1,30 +1,134 @@[m
+[31m-import Link from 'next/link'; // Import Link from next/link[m
+[32m+[m[32mimport Link from 'next/link';[m
+ [m
+ const Footer = () => {[m
+   return ([m
+[31m-    <footer className="bg-gray-800">[m
+[31m-      <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">[m
+[31m-        {/* Removed unused code */}[m
+[31m-        <div className="mt-8 flex justify-center space-x-6">[m
+[31m-          {/* Keep the LinkedIn link as an <a> tag (it's an external link) */}[m
+[31m-          <a href="https://www.linkedin.com/in/rich-jones-podbubble/" className="text-gray-400 hover:text-gray-300">[m
+[31m-            <span className="sr-only">LinkedIn</span>[m
+[31m-            <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">[m
+[31m-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />[m
+[31m-            </svg>[m
+[31m-          </a>[m
+[32m+[m[32m    <footer className="bg-gray-900">[m
+[32m+[m[32m      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">[m
+[32m+[m[32m        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">[m
+[32m+[m[32m          {/* Services Section */}[m
+[32m+[m[32m          <div>[m
+[32m+[m[32m            <h3 className="text-white text-lg font-semibold mb-4">Our Services</h3>[m
+[32m+[m[32m            <ul className="space-y-2">[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  WordPress Website Development[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  SEO Optimization[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Website Hosting[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/podcast-production" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Podcast Production[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/ai-for-schools" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  AI Agents for Schools[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m          </div>[m
+[32m+[m
+[32m+[m[32m          {/* Website Packages */}[m
+[32m+[m[32m          <div>[m
+[32m+[m[32m            <h3 className="text-white text-lg font-semibold mb-4">Website Packages</h3>[m
+[32m+[m[32m            <ul className="space-y-2">[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/#packages" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Starter Package[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/#packages" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Professional Package[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/#packages" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Premium Package[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m          </div>[m
+[32m+[m
+[32m+[m[32m          {/* Podcast Packages */}[m
+[32m+[m[32m          <div>[m
+[32m+[m[32m            <h3 className="text-white text-lg font-semibold mb-4">Podcast Services</h3>[m
+[32m+[m[32m            <ul className="space-y-2">[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/podcast-production#packages" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Podcast Launch[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/podcast-production#packages" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Podcast Growth[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/podcast-production#packages" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Podcast Unlimited[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m          </div>[m
+[32m+[m
+[32m+[m[32m          {/* Legal & Contact */}[m
+[32m+[m[32m          <div>[m
+[32m+[m[32m            <h3 className="text-white text-lg font-semibold mb-4">Legal & Contact</h3>[m
+[32m+[m[32m            <ul className="space-y-2 mb-4">[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/Privacy" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Privacy Policy[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <Link href="/policies/Policy for PodBubble AI Use In Education Settings.pdf" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Product Policy[m
+[32m+[m[32m                </Link>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m              <li>[m
+[32m+[m[32m                <a href="mailto:hello@podbubble.com" className="text-gray-400 hover:text-white transition-colors">[m
+[32m+[m[32m                  Contact Us[m
+[32m+[m[32m                </a>[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m            </ul>[m
+[32m+[m[32m            <div className="mt-4">[m
+[32m+[m[32m              <a[m[41m [m
+[32m+[m[32m                href="https://www.linkedin.com/in/rich-jones-podbubble/"[m[41m [m
+[32m+[m[32m                className="text-gray-400 hover:text-white transition-colors inline-block"[m
+[32m+[m[32m                aria-label="LinkedIn"[m
+[32m+[m[32m              >[m
+[32m+[m[32m                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">[m
+[32m+[m[32m                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />[m
+[32m+[m[32m                </svg>[m
+[32m+[m[32m              </a>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m          </div>[m
+         </div>[m
+[31m-        <div className="mt-8 text-center">[m
+[31m-          <Link href="/Privacy" className="text-base text-gray-400">[m
+[31m-            Privacy[m
+[31m-          </Link>[m
+[32m+[m
+[32m+[m[32m        {/* Company Information */}[m
+[32m+[m[32m        <div className="border-t border-gray-800 pt-8 mt-8">[m
+[32m+[m[32m          <div className="text-center">[m
+[32m+[m[32m            <p className="text-gray-400 text-sm mb-2">[m
+[32m+[m[32m              PodBubble is a limited company registered in England and Wales.[m
+[32m+[m[32m            </p>[m
+[32m+[m[32m            <p className="text-gray-400 text-sm mb-4">[m
+[32m+[m[32m              Company Number: 15382639[m
+[32m+[m[32m            </p>[m
+[32m+[m[32m            <p className="text-gray-400 text-sm">[m
+[32m+[m[32m              &copy; {new Date().getFullYear()} PodBubble. All rights reserved.[m
+[32m+[m[32m            </p>[m
+           </div>[m
+[31m-          <div className="mt-8 text-center">[m
+[31m-          <Link href="/policies/Policy for PodBubble AI Use In Education Settings.pdf" className="text-base text-gray-400">[m
+[31m-            Product Policy[m
+[31m-          </Link>[m
+         </div>[m
+[31m-        <p className="mt-8 text-center text-base text-gray-400">&copy; 2025 PodBubble. All rights reserved.</p>[m
+       </div>[m
+     </footer>[m
+   );[m
